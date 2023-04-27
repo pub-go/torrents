@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <el-container>
-    Home
-  </el-container>
+    <el-container>
+        Info
+    </el-container>
 </template>
