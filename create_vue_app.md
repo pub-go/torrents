@@ -90,7 +90,7 @@ export default defineConfig({
 `createWebHistory` 需要服务器配置才能支持: 不存在的文件返回 index.html 以便让网页端接管路由
 所以 GitHub Pages 这种应当使用 # hash 路由，换为 `createWebHashHistory`.
 
-### 保持路径不使用#路由的方法
+#### 保持路径不使用#路由的方法
 [怎样为Github pages Hack使用了vue-router history模式的vue应用？](https://www.zhihu.com/question/64173754)
 - 最简单的方法，将 build 后的 index.html 复制一份，命名为 404.html, 见 [.github/workflows/ghpage.yaml](./.github/workflows/ghpage.yaml)
 - [csuwildcat/sghpa](https://github.com/csuwildcat/sghpa) 404.html 中在 sessionStorage 记录当前路径，并重定向到 index.html, 然后在首页 replace url
@@ -99,3 +99,17 @@ export default defineConfig({
 第一种方法，请求服务端不存在的文件，会返回 404 状态码，但 404.html 的内容就是 index.html 的内容，所以浏览器可以正常渲染页面，不打开控制台是看不到 404 标红的。
 后两种方法，会返回 404 状态码，然后跳转到首页 得到 200 状态码，并通过 `history.replaceState` 替换 url, 不打开控制台用户也是无感的。
 
+### 暗色主题
+[暗黑模式](https://element-plus.org/zh-CN/guide/dark-mode.html)
+- `main.ts` 引入 Element Plus 的暗色 CSS 变量
+- 使用 VueUse 动态切换，见代码 [dark.ts](./src/composables/dark.ts)
+- 导航栏上添加切换按钮
+
+## 国际化
+使用 [Vue 3 Gettext](https://jshmrtn.github.io/vue3-gettext/zh/) 实现。
+- 第一步，安装 `vue3-gettext`
+  ```bash
+  npm i vue3-gettext@next
+  ```
+- 第二步，配置自动抽取翻译字符串
+- 配置插件、使用翻译函数

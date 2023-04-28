@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: src/components/PageHeader.vue:25
+msgid "About"
+msgstr ""
+
+#: src/components/PageHeader.vue:19
+msgid "Create"
+msgstr ""
+
+#: src/components/PageHeader.vue:16
+msgid "Home"
+msgstr ""
+
+#: src/components/PageFooter.vue:12
+msgid "last update at: {0}-{1}-{2} (version: {3})"
+msgstr ""
+
+#: src/components/PageHeader.vue:22
+msgid "View"
+msgstr ""

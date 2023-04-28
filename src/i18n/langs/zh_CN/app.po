@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/components/PageHeader.vue:25
+msgid "About"
+msgstr "关于"
+
+#: src/components/PageHeader.vue:19
+msgid "Create"
+msgstr "制作种子"
+
+#: src/components/PageHeader.vue:16
+msgid "Home"
+msgstr "首页"
+
+#: src/components/PageFooter.vue:12
+msgid "last update at: {0}-{1}-{2} (version: {3})"
+msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
+
+#: src/components/PageHeader.vue:22
+msgid "View"
+msgstr "查看种子"

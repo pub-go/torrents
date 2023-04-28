@@ -1,3 +1,4 @@
+import { gettext } from '@/i18n/gettext';
 import router from '@/router';
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
@@ -9,7 +10,7 @@ describe('PageHeader', () => {
     await router.isReady()
     const wrapper = mount(PageHeader, {
       global: {
-        plugins: [router]
+        plugins: [router, gettext]
       }
     })
     expect(wrapper.find('li:nth-child(1)').classes('is-active')).toBe(true)

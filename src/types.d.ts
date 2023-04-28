@@ -1,11 +1,9 @@
-declare interface GitInfo {
-    author: string,
-    subject: string,
-    author: string,
-    commit: string,
-    commitLong: string,
-    timestampt: string,
-    time: string,
+export { };
+declare module 'vue' {
+    export interface ComponentCustomProperties {
+        __: (msgid: string) => string
+        _x: (context: string, msgid: string) => string
+        _n: (msgid: string, plural: string, n: number) => string
+        _xn: (context: string, msgid: string, plural: string, n: number) => string
+    }
 }
-declare const __GIT_INFO__: GitInfo;
-declare module 'element-plus/dist/locale/zh-cn.mjs';

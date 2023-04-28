@@ -9,15 +9,19 @@
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "gettext": "vue-gettext-extract",
+    "gettext:compile": "vue-gettext-compile"
   },
   "dependencies": {
     "element-plus": "^2.3.4",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vue3-gettext": "^3.0.0-alpha.1"
   },
   "devDependencies": {
     "@iconify-json/ep": "^1.1.10",
+    "@iconify-json/ph": "^1.1.5",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/jsdom": "^21.1.0",
     "@types/node": "^18.14.2",

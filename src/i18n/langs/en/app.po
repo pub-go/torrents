@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/components/PageHeader.vue:25
+msgid "About"
+msgstr ""
+
+#: src/components/PageHeader.vue:19
+msgid "Create"
+msgstr ""
+
+#: src/components/PageHeader.vue:16
+msgid "Home"
+msgstr "Home"
+
+#: src/components/PageFooter.vue:12
+msgid "last update at: {0}-{1}-{2} (version: {3})"
+msgstr ""
+
+#: src/components/PageHeader.vue:22
+msgid "View"
+msgstr ""
