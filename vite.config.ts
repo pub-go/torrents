@@ -37,6 +37,7 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    // https://venerable-strudel-d42cce.netlify.app/guide/
     UnoCSS({
       presets: [
         presetUno(),          // 基本预设
