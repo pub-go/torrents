@@ -10,6 +10,11 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/create',
+      name: 'create',
+      component: () => import('../views/CreateView.vue')
+    },
+    {
       path: '/view',
       name: 'view',
       component: () => import('../views/InfoView.vue')
@@ -23,6 +28,10 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     }
   ]
+})
+
+router.afterEach((to) => {
+  console.log(`route to ${String(to.name)}`)
 })
 
 export default router
