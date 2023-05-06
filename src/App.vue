@@ -15,7 +15,7 @@ import { elLocale } from './i18n/gettext';
       <el-main>
         <RouterView />
       </el-main>
-      <el-footer>
+      <el-footer style="min-height: var(--el-footer-height);height: auto;">
         <PageFooter />
       </el-footer>
     </el-container>
