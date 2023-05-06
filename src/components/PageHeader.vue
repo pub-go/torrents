@@ -5,7 +5,8 @@ import { changeLang } from '../i18n/gettext';
 
 const gettext = useGettext()
 async function onSelectMenu(key: string, path: string[]) {
-    if (path && path.length > 0 && path[0] === 'lang') {
+    const prefix = path.join(',')
+    if (prefix.startsWith('lang') || prefix.startsWith('sub-menu-more,lang')) {
         changeLang(key)
     }
 }

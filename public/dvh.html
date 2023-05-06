@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .p2 {
+            height: 200vh;
+            background: blue;
+        }
+
+        .p1 {
+            height: 100vh;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='p2'>
+        <div class="p1">
+            <button type="button">100vh</button>
+            <button type="button">100svh</button>
+            <button type="button">100lvh</button>
+            <button type="button">100dvh</button>
+            <br>
+            <p id="text"></p>
+        </div>
+    </div>
+    <script>
+        const $p1 = document.querySelector('.p1')
+        const $text = document.querySelector('#text')
+        const $btns = document.querySelectorAll('button')
+        $btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                $p1.style.height = btn.innerText
+                $text.innerText = btn.innerText
+            })
+        })
+    </script>
+</body>
+
+</html>
