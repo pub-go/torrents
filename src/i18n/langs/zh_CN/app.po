@@ -8,22 +8,166 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/components/PageHeader.vue:25
+#: src/views/CreateView.vue:122
+msgid "1 MB"
+msgstr "1 MB"
+
+#: src/views/CreateView.vue:119
+msgid "128 KB"
+msgstr "128 KB"
+
+#: src/views/CreateView.vue:116
+msgid "16 KB"
+msgstr "16 KB"
+
+#: src/views/CreateView.vue:126
+msgid "16 MB"
+msgstr "16 MB"
+
+#: src/views/CreateView.vue:123
+msgid "2 MB"
+msgstr "2 MB"
+
+#: src/views/CreateView.vue:120
+msgid "256 KB"
+msgstr "256 KB"
+
+#: src/views/CreateView.vue:117
+msgid "32 KB"
+msgstr "32 KB"
+
+#: src/views/CreateView.vue:124
+msgid "4 MB"
+msgstr "4 MB"
+
+#: src/views/CreateView.vue:121
+msgid "512 KB"
+msgstr "512 KB"
+
+#: src/views/CreateView.vue:118
+msgid "64 KB"
+msgstr "64 KB"
+
+#: src/views/CreateView.vue:125
+msgid "8 MB"
+msgstr "8 MB"
+
+#: src/components/PageHeader.vue:40 src/components/PageHeader.vue:42
 msgid "About"
 msgstr "关于"
 
-#: src/components/PageHeader.vue:19
+#: src/views/CreateView.vue:104 src/views/CreateView.vue:73
+msgid "Add File"
+msgstr "添加文件"
+
+#: src/views/CreateView.vue:115
+msgid "Auto"
+msgstr "自动"
+
+#: src/views/CreateView.vue:141
+msgid "Comment"
+msgstr "注释"
+
+#: src/components/PageHeader.vue:20
 msgid "Create"
 msgstr "制作种子"
 
-#: src/components/PageHeader.vue:16
+#: src/views/CreateView.vue:132
+msgid "Creation Field"
+msgstr "创建时间字段"
+
+#: src/views/CreateView.vue:158 src/views/CreateView.vue:159
+msgid "Download"
+msgstr "下载"
+
+#: src/views/CreateView.vue:91 src/views/CreateView.vue:92
+msgid "Drop file here or click to upload"
+msgstr "拖放文件至此，或点击此处选择文件"
+
+#: src/views/CreateView.vue:105
+msgid "File List"
+msgstr "文件列表"
+
+#: src/views/CreateView.vue:242 src/views/CreateView.vue:75
+msgid "Generate"
+msgstr "生成"
+
+#: src/components/PageHeader.vue:17
 msgid "Home"
 msgstr "首页"
+
+#: src/views/CreateView.vue:129
+msgid "Is Private"
+msgstr "私有种子(PT)"
 
 #: src/components/PageFooter.vue:12
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
 
-#: src/components/PageHeader.vue:22
+#: src/views/CreateView.vue:149 src/views/CreateView.vue:150
+#: src/views/CreateView.vue:97 src/views/CreateView.vue:98
+msgid "Next Step"
+msgstr "下一步"
+
+#: src/views/CreateView.vue:113
+msgid "Piece Size"
+msgstr "分片大小"
+
+#: src/views/CreateView.vue:148 src/views/CreateView.vue:149
+#: src/views/CreateView.vue:157 src/views/CreateView.vue:158
+#: src/views/CreateView.vue:96 src/views/CreateView.vue:97
+msgid "Previous Step"
+msgstr "上一步"
+
+#: src/views/CreateView.vue:72 src/views/CreateView.vue:90
+msgid "Select Type"
+msgstr "选择类型"
+
+#: src/views/CreateView.vue:136 src/views/CreateView.vue:74
+msgid "Settings"
+msgstr "设置"
+
+#: src/views/CreateView.vue:144
+msgid "Source"
+msgstr "来源"
+
+#: src/views/CreateView.vue:110
+msgid "Torrent Name"
+msgstr "种子名称"
+
+#: src/views/CreateView.vue:135
+msgid "Trackers"
+msgstr "追踪器(Trackers)"
+
+#: src/components/PageHeader.vue:23
 msgid "View"
 msgstr "查看种子"
+
+#: src/views/CreateView.vue:138
+msgid "Web Seeds"
+msgstr "下载直链"
+
+#: src/views/CreateView.vue:82
+msgctxt "btn"
+msgid "Multil File (Folder)"
+msgstr "多文件(文件夹)"
+
+#: src/views/CreateView.vue:81
+msgctxt "btn"
+msgid "Single File"
+msgstr "单文件"
+
+#: src/views/CreateView.vue:24
+msgctxt "desc"
+msgid "Multi File"
+msgstr "多文件"
+
+#: src/views/CreateView.vue:24
+msgctxt "desc"
+msgid "Single File"
+msgstr "单文件"
+
+#: src/views/CreateView.vue:106 src/views/CreateView.vue:107
+msgctxt "file-size"
+msgid "{0} ({1})"
+msgstr "{0} ({1})"

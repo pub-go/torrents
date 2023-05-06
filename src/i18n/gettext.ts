@@ -67,4 +67,9 @@ async function changeLang(lang: string) {
     await changeLang(gettext.current)// 注意这里需要 await
 })()
 
-export { elLocale, gettext, changeLang };
+const __ = gettext.$gettext
+const _n = gettext.$ngettext
+const _x = gettext.$pgettext
+const _nx = gettext.$npgettext
+
+export { elLocale, gettext, changeLang, __, _n, _x, _nx };
