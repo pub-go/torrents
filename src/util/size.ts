@@ -1,9 +1,19 @@
+import format from "./format"
+
 function sizeString(size: number) {
-    if (size >= 1024 * 1024 * 1024 * 1024) { return (size / 1024 / 1024 / 1024 / 1024).toFixed(0) + 'TB' }
-    if (size >= 1024 * 1024 * 1024) { return (size / 1024 / 1024 / 1024).toFixed(0) + 'GB' }
-    if (size >= 1024 * 1024) { return (size / 1024 / 1024).toFixed(0) + 'MB' }
-    if (size >= 1024) { return (size / 1024).toFixed(0) + 'KB' }
-    return size + 'B'
+    if (size < 1024) {
+        return format(('{0} B'), size)
+    }
+    if (size < 1024 * 1024) {
+        return format(('{0} KB'), (size / 1024).toFixed(2))
+    }
+    if (size < 1024 * 1024 * 1024) {
+        return format(('{0} MB'), (size / 1024 / 1024).toFixed(2))
+    }
+    if (size < 1024 * 1024 * 1024 * 1024) {
+        return format(('{0} GB'), (size / 1024 / 1024 / 1024).toFixed(2))
+    }
+    return format(('{0} TB'), (size / 1024 / 1024 / 1024 / 1024).toFixed(2))
 }
 
 export { sizeString }

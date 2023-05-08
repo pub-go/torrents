@@ -1,28 +1,30 @@
 import { describe, expect, it } from 'vitest';
 import { sizeString } from '../size';
+import { mount } from '@vue/test-utils'
 
 describe('test size to string', () => {
+
     it('less than 1024', () => {
-        expect(sizeString(0)).eq('0B')
-        expect(sizeString(1)).eq('1B')
-        expect(sizeString(1023)).eq('1023B')
+        expect(sizeString(0)).eq('0 B')
+        expect(sizeString(1)).eq('1 B')
+        expect(sizeString(1023)).eq('1023 B')
     })
     it('less than 1MB', () => {
-        expect(sizeString(1024)).eq('1KB')
-        expect(sizeString(1025)).eq('1KB')
-        expect(sizeString(1024 * 1023)).eq('1023KB')
+        expect(sizeString(1024)).eq('1.00 KB')
+        expect(sizeString(1025)).eq('1.00 KB')
+        expect(sizeString(1024 * 1023)).eq('1023.00 KB')
     })
     it('less than 1GB', () => {
-        expect(sizeString(1024 * 1024)).eq('1MB')
-        expect(sizeString(1024 * 1024 + 1)).eq('1MB')
-        expect(sizeString(1024 * 1024 * 1023)).eq('1023MB')
+        expect(sizeString(1024 * 1024)).eq('1.00 MB')
+        expect(sizeString(1024 * 1024 + 1)).eq('1.00 MB')
+        expect(sizeString(1024 * 1024 * 1023)).eq('1023.00 MB')
     })
     it('less than 1TB', () => {
-        expect(sizeString(1024 * 1024 * 1024)).eq('1GB')
-        expect(sizeString(1024 * 1024 * 1024 * 1023)).eq('1023GB')
+        expect(sizeString(1024 * 1024 * 1024)).eq('1.00 GB')
+        expect(sizeString(1024 * 1024 * 1024 * 1023)).eq('1023.00 GB')
     })
     it('great than 1TB', () => {
-        expect(sizeString(1024 * 1024 * 1024 * 1024)).eq('1TB')
-        expect(sizeString(1024 * 1024 * 1024 * 1024 * 10)).eq('10TB')
+        expect(sizeString(1024 * 1024 * 1024 * 1024)).eq('1.00 TB')
+        expect(sizeString(1024 * 1024 * 1024 * 1024 * 10)).eq('10.00 TB')
     })
 })

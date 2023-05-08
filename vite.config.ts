@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { presetAttributify, presetIcons, presetUno } from 'unocss'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import ElementPlus from 'unplugin-element-plus/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
@@ -37,6 +38,7 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    ElementPlus({}),// 自动导入样式
     // https://venerable-strudel-d42cce.netlify.app/guide/
     UnoCSS({
       presets: [

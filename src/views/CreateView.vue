@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { _x } from '@/i18n/gettext';
+import { __, _x } from '@/i18n/gettext';
+import type { Torrent } from '@/model/torrent';
 import format from '@/util/format';
+import { generatePieces } from '@/util/sha1';
 import { sizeString } from '@/util/size';
-import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus';
+import bencode from 'bencode';
+import { ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 // steps(index/下标) and tabs(value/值)
@@ -61,8 +64,91 @@ const form = reactive({
   source: ''
 })
 
+const submitSettings = () => {
+  if (form.torrentName === '') {
+    showError(__('Torrent name must not be empty.'))
+    return
+  }
+  if (form.trackers === '') {
+    showError(__('Trackers must not be empty.'))
+    return
+  }
+  active.value++
+  generate()
+}
+
+function showError(msg: string) {
+  ElNotification.error({
+    title: __('Error'),
+    message: msg,
+  })
+}
+
 // step 4
 const done = ref(false)
+
+const torrent = ref<Torrent>({
+  announce: '',        // 服务器
+  "announce-list": [], // 多个服务器
+  "created by": 'https://pub-go.github.io/torrents/', // 创建者
+  // "creation date": new Date().getTime() / 1000,    // 创建时间
+  // comment:'',     // 注释
+  // "url-list": [], // 下载链接
+  info: {
+    name: '',
+    "piece length": 0,
+    pieces: new Uint8Array(),
+  },
+})
+
+const generate = async () => {
+  if (isSingle) {
+    const trackers = form.trackers.split(/\s+/g)
+    torrent.value.announce = trackers[0]
+    torrent.value['announce-list'] = trackers.map(url => [url])
+
+    if (form.setCreation) {
+      torrent.value['creation date'] = (new Date().getTime() / 1000) | 0
+    }
+    else { delete torrent.value['creation date'] }
+
+    if (form.comment) { torrent.value.comment = form.comment }
+    else { delete torrent.value.comment }
+
+    const urlList = form.webSeeds.split(/\s+/g)
+    if (form.webSeeds) { torrent.value['url-list'] = urlList }
+    else { delete torrent.value['url-list'] }
+
+    torrent.value.info.name = form.torrentName
+
+    const file = fileList.value[0]
+    const fileSize = file.size!
+    torrent.value.info.length = fileSize
+    if (form.pieceSize) {
+      torrent.value.info['piece length'] = form.pieceSize
+    } else {
+      // Why/How?
+      // copy from https://github.com/Kimbatt/torrent-creator/blob/gh-pages/index.ts
+      let factor = Math.round(Math.log(fileSize / 1200) / Math.log(2))
+      if (factor < 14)
+        factor = 14; // => 16 KB
+      else if (factor > 24)
+        factor = 24; // => 16 MB
+      torrent.value.info['piece length'] = 1 << factor;
+    }
+
+    const piece = await generatePieces(file.raw as File, torrent.value.info['piece length'])
+    torrent.value.info.pieces = piece.reduce((acc, item) => {
+      const sum = new Uint8Array(acc.length + item.length)
+      sum.set(acc)
+      sum.set(item, acc.length)
+      return sum
+    })
+    console.log('torrent', torrent)
+    console.log('bencode', bencode.encode(torrent.value))
+  }
+}
+
 </script>
 
 <template>
@@ -129,7 +215,7 @@ const done = ref(false)
             <el-form-item :label="__('Is Private')">
               <el-switch v-model="form.isPrivate" />
             </el-form-item>
-            <el-form-item :label="__('Creation Field')">
+            <el-form-item :label="__('Creation Date')">
               <el-switch v-model="form.setCreation" />
             </el-form-item>
             <el-form-item :label="__('Trackers')">
@@ -147,7 +233,7 @@ const done = ref(false)
           </el-form>
           <div class="flex justify-between">
             <el-button @click="active--">{{ __('Previous Step') }}</el-button>
-            <el-button type="primary" @click="active++">{{ __('Next Step') }}</el-button>
+            <el-button type="primary" @click="submitSettings">{{ __('Next Step') }}</el-button>
           </div>
         </div>
       </el-tab-pane>
