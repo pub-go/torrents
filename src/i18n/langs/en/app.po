@@ -9,99 +9,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/views/CreateView.vue:208
+#: src/views/CreateView.vue:265
 msgid "1 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:205
+#: src/views/CreateView.vue:262
 msgid "128 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:202
+#: src/views/CreateView.vue:259
 msgid "16 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:212
+#: src/views/CreateView.vue:269
 msgid "16 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:209
+#: src/views/CreateView.vue:266
 msgid "2 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:206
+#: src/views/CreateView.vue:263
 msgid "256 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:203
+#: src/views/CreateView.vue:260
 msgid "32 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:210
+#: src/views/CreateView.vue:267
 msgid "4 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:207
+#: src/views/CreateView.vue:264
 msgid "512 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:204
+#: src/views/CreateView.vue:261
 msgid "64 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:211
+#: src/views/CreateView.vue:268
 msgid "8 MB"
 msgstr ""
 
 #: src/components/PageHeader.vue:40 src/components/PageHeader.vue:42
+#: src/router/index.ts:27 src/views/HomeView.vue:10
 msgid "About"
 msgstr ""
 
-#: src/views/CreateView.vue:159 src/views/CreateView.vue:190
+#: src/views/CreateView.vue:219 src/views/CreateView.vue:250
 msgid "Add File"
 msgstr ""
 
-#: src/views/CreateView.vue:201
+#: src/views/CreateView.vue:258
 msgid "Auto"
 msgstr ""
 
-#: src/views/CreateView.vue:227
+#: src/views/CreateView.vue:284
 msgid "Comment"
 msgstr ""
 
-#: src/components/PageHeader.vue:20
+#: src/components/PageHeader.vue:20 src/router/index.ts:17
+#: src/views/HomeView.vue:4
 msgid "Create"
 msgstr ""
 
-#: src/views/CreateView.vue:218
+#: src/views/CreateView.vue:275
 msgid "Creation Date"
 msgstr ""
 
-#: src/views/CreateView.vue:244 src/views/CreateView.vue:245
+#: src/views/CreateView.vue:118
+msgid "done ({0} ms)"
+msgstr ""
+
+#: src/views/CreateView.vue:303 src/views/CreateView.vue:304
+#: src/views/CreateView.vue:305 src/views/CreateView.vue:306
 msgid "Download"
 msgstr ""
 
-#: src/views/CreateView.vue:177 src/views/CreateView.vue:178
+#: src/views/CreateView.vue:237 src/views/CreateView.vue:238
 msgid "Drop file here or click to upload"
 msgstr ""
 
-#: src/views/CreateView.vue:82
+#: src/views/CreateView.vue:104
 msgid "Error"
 msgstr ""
 
-#: src/views/CreateView.vue:191
+#: src/views/CreateView.vue:251
 msgid "File List"
 msgstr ""
 
-#: src/views/CreateView.vue:161 src/views/CreateView.vue:328
+#: src/views/CreateView.vue:221 src/views/CreateView.vue:382
 msgid "Generate"
 msgstr ""
 
-#: src/components/PageHeader.vue:17
+#: src/views/CreateView.vue:200
+msgid "Generate torrent file success. (cost {0} ms)"
+msgstr ""
+
+#: src/components/PageHeader.vue:17 src/router/index.ts:12
 msgid "Home"
 msgstr ""
 
-#: src/views/CreateView.vue:215
+#: src/views/CreateView.vue:94
+msgid "invalid tracker URL: {0}"
+msgstr ""
+
+#: src/views/CreateView.vue:272
 msgid "Is Private"
 msgstr ""
 
@@ -109,78 +124,91 @@ msgstr ""
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr ""
 
-#: src/views/CreateView.vue:183 src/views/CreateView.vue:184
-#: src/views/CreateView.vue:235 src/views/CreateView.vue:236
+#: src/views/CreateView.vue:243 src/views/CreateView.vue:244
+#: src/views/CreateView.vue:292 src/views/CreateView.vue:293
 msgid "Next Step"
 msgstr ""
 
-#: src/views/CreateView.vue:199
+#: src/router/index.ts:39
+msgid "Online Torrent Creator/Editor"
+msgstr ""
+
+#: src/views/CreateView.vue:256
 msgid "Piece Size"
 msgstr ""
 
-#: src/views/CreateView.vue:182 src/views/CreateView.vue:183
-#: src/views/CreateView.vue:234 src/views/CreateView.vue:235
-#: src/views/CreateView.vue:243 src/views/CreateView.vue:244
+#: src/views/CreateView.vue:242 src/views/CreateView.vue:243
+#: src/views/CreateView.vue:291 src/views/CreateView.vue:292
+#: src/views/CreateView.vue:302 src/views/CreateView.vue:303
+#: src/views/CreateView.vue:304
 msgid "Previous Step"
 msgstr ""
 
-#: src/views/CreateView.vue:158 src/views/CreateView.vue:176
+#: src/views/CreateView.vue:218 src/views/CreateView.vue:236
 msgid "Select Type"
 msgstr ""
 
-#: src/views/CreateView.vue:160 src/views/CreateView.vue:222
+#: src/views/CreateView.vue:220 src/views/CreateView.vue:282
 msgid "Settings"
 msgstr ""
 
-#: src/views/CreateView.vue:230
+#: src/views/CreateView.vue:287
 msgid "Source"
 msgstr ""
 
-#: src/views/CreateView.vue:196
-msgid "Torrent Name"
-msgstr ""
-
-#: src/views/CreateView.vue:69
-msgid "Torrent name must not be empty."
-msgstr ""
-
-#: src/views/CreateView.vue:221
+#: src/views/CreateView.vue:278
 msgid "Trackers"
 msgstr ""
 
-#: src/views/CreateView.vue:73
+#: src/views/CreateView.vue:86
 msgid "Trackers must not be empty."
 msgstr ""
 
-#: src/components/PageHeader.vue:23
-msgid "View"
+#: src/components/PageHeader.vue:23 src/router/index.ts:22
+#: src/views/HomeView.vue:7
+msgid "View/Edit"
 msgstr ""
 
-#: src/views/CreateView.vue:224
+#: src/views/CreateView.vue:281
 msgid "Web Seeds"
 msgstr ""
 
-#: src/views/CreateView.vue:168
+#: src/views/CreateView.vue:228
 msgctxt "btn"
-msgid "Multil File (Folder)"
+msgid "Folder"
 msgstr ""
 
-#: src/views/CreateView.vue:167
+#: src/views/CreateView.vue:227
 msgctxt "btn"
 msgid "Single File"
 msgstr ""
 
-#: src/views/CreateView.vue:27
+#: src/views/CreateView.vue:32
 msgctxt "desc"
-msgid "Multi File"
+msgid "Folder"
 msgstr ""
 
-#: src/views/CreateView.vue:27
+#: src/views/CreateView.vue:32
 msgctxt "desc"
 msgid "Single File"
 msgstr ""
 
-#: src/views/CreateView.vue:192 src/views/CreateView.vue:193
+#: src/views/CreateView.vue:252 src/views/CreateView.vue:253
 msgctxt "file-size"
 msgid "{0} ({1})"
+msgstr ""
+
+#: src/router/index.ts:41
+msgctxt "page title"
+msgid "{0} :: {1}"
+msgstr ""
+
+#: src/views/CreateView.vue:77
+msgctxt "settings desc"
+msgid "BT ({0})"
+msgstr ""
+
+#: src/views/CreateView.vue:75
+msgctxt "settings desc"
+msgid "PT ({0})"
 msgstr ""

@@ -4,6 +4,6 @@
 
 <template>
     <el-container>
-        Info
+        Edit
     </el-container>
 </template>

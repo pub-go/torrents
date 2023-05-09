@@ -20,7 +20,7 @@ async function onSelectMenu(key: string, path: string[]) {
             <RouterLink class="block" to="/create">{{ __('Create') }}</RouterLink>
         </el-menu-item>
         <el-menu-item index="view">
-            <RouterLink class="block" to="/view">{{ __('View') }}</RouterLink>
+            <RouterLink class="block" to="/edit">{{ __('View/Edit') }}</RouterLink>
         </el-menu-item>
 
         <div class="grow"></div>

@@ -63,9 +63,7 @@ async function changeLang(lang: string) {
     } catch (e) { }
 }
 
-(async () => {
-    await changeLang(gettext.current)// 注意这里需要 await
-})()
+await changeLang(gettext.current) // 注意这里需要 await
 
 const __ = gettext.$gettext
 const _n = gettext.$ngettext
