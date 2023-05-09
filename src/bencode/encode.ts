@@ -102,6 +102,7 @@ class BDict implements BValue {
 }
 
 function getType(value: any) {
+    if (ArrayBuffer.isView(value)) return 'arraybufferview'
     if (Array.isArray(value)) return 'array'
     if (value instanceof Number) return 'number'
     if (value instanceof Boolean) return 'boolean'
@@ -111,15 +112,19 @@ function getType(value: any) {
 
 function toBValue(v: any): BValue {
     switch (getType(v)) {
+        case 'arraybufferview':
         case 'string': return new BString(v)
+
         case 'number': return new BInt(v)
         case 'boolean': return new BInt(v ? 1 : 0)
+
         case 'array':
             const list: BValue[] = []
             for (let item of v) {
                 list.push(toBValue(item))
             }
             return new BList(list)
+
         case 'object':
             const dict: Record<string, BValue> = {}
             for (let key in v) {
@@ -131,5 +136,5 @@ function toBValue(v: any): BValue {
 }
 
 export type { BType, BValue };
-export { BString, BInt, BList, BDict ,toBValue};
+export { BString, BInt, BList, BDict, toBValue };
 

@@ -188,12 +188,14 @@ const generate = async () => {
         }
       },
     )
-    torrent.value.info.pieces = piece.reduce((acc, item) => {
-      const sum = new Uint8Array(acc.length + item.length)
-      sum.set(acc)
-      sum.set(item, acc.length)
-      return sum
-    })
+    const length = piece.reduce((acc, i) => acc + i.length, 0)
+    const pieces = new Uint8Array(length)
+    let i = 0
+    for (let p of piece) {
+      pieces.set(p, i)
+      i += p.length
+    }
+    torrent.value.info.pieces = pieces
   }
   costMs.value = new Date().getTime() - start
   ElMessage.success({
