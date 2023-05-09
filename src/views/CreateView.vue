@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { toBValue } from '@/bencode';
 import { __, _x } from '@/i18n/gettext';
 import type { Torrent } from '@/model/torrent';
 import format from '@/util/format';
 import { generatePieces } from '@/util/sha1';
 import { sizeString } from '@/util/size';
-import bencode from 'bencode';
 import { ElMessage, ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
@@ -201,7 +201,8 @@ const generate = async () => {
   })
   done.value = true
   URL.revokeObjectURL(downloadURL.value)
-  downloadURL.value = URL.createObjectURL(new Blob([bencode.encode(torrent.value)]))
+
+  downloadURL.value = URL.createObjectURL(new Blob([toBValue(torrent.value).Encode()]))
   downloadLink.value!.href = downloadURL.value
 }
 const download = () => {

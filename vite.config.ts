@@ -27,6 +27,9 @@ function getGitInfo() {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/torrents/',
+  build: {
+    target: 'esnext',
+  },
   define: {
     __GIT_INFO__: getGitInfo(),
   },

@@ -8,22 +8,34 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: __('Home'),
+      name: 'home',
+      meta: {
+        title: __('Home'),
+      },
       component: HomeView
     },
     {
       path: '/create',
-      name: __('Create'),
+      name: 'create',
+      meta: {
+        title: __('Create'),
+      },
       component: () => import('../views/CreateView.vue')
     },
     {
       path: '/edit',
-      name: __('View/Edit'),
+      name: 'edit',
+      meta: {
+        title: __('View/Edit'),
+      },
       component: () => import('../views/EditView.vue')
     },
     {
       path: '/about',
-      name: __('About'),
+      name: 'about',
+      meta: {
+        title: __('Home'),
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -38,8 +50,8 @@ router.afterEach((to) => {
   const __ = gettext.__
   const _x = gettext._x
   const title = __('Online Torrent Creator/Editor')
-  if (to.name) {
-    document.title = format(_x('page title', '{0} :: {1}'), __(to.name.toString()), title)
+  if (to.meta.title) {
+    document.title = format(_x('page title', '{0} :: {1}'), __(to.meta.title as string), title)
   } else {
     document.title = title
   }

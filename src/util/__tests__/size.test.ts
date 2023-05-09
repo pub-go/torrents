@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { sizeString } from '../size';
-import { mount } from '@vue/test-utils'
 
 describe('test size to string', () => {
 
