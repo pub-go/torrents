@@ -1,1 +1,0 @@
-import{bw as t,Y as n,ae as a,ad as o,bt as c,ah as r}from"./index-38afe379.js";const s={};function _(f,l){const e=c;return n(),a(e,null,{default:o(()=>[r(" Info ")]),_:1})}const d=t(s,[["render",_]]);export{d as default};
