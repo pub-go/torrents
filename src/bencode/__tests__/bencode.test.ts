@@ -1,4 +1,4 @@
-import { toString } from '@/util/uint8array';
+import { fromString, toString } from '@/util/uint8array';
 import { describe, expect, it } from 'vitest';
 import { BDict, BInt, BList, BString, decode, toBValue } from '../';
 
@@ -13,8 +13,13 @@ describe('to BValue', () => {
             list: [['inner', 'item2'], ['second']],
             dict: {
                 'a-b': 'cd',
-            }
+            },
+            // buf: fromString('buf').buffer,
+            view: fromString('view'),
+            set: new Set([true, -1, 'ok']),
+            map: new Map([['key', 'value'], ['k2', 'v2']]),
         })).deep.eq(new BDict({
+            // buf: new BString('buf'),
             dict: new BDict({
                 'a-b': new BString('cd')
             }),
@@ -24,6 +29,12 @@ describe('to BValue', () => {
                 new BList([new BString('inner'), new BString('item2')]),
                 new BList([new BString('second')]),
             ]),
+            map: new BDict({
+                'key': new BString('value'),
+                'k2': new BString('v2'),
+            }),
+            set: new BList([new BInt(1), new BInt(-1), new BString('ok')]),
+            view: new BString('view'),
         }))
     })
 })

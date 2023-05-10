@@ -1,3 +1,28 @@
+<template>
+    <details class="mt4 pl pt pb b b-dashed">
+        <summary class="cursor-pointer">
+            <el-row class="inline-flex w95%">
+                <el-col :span="12">{{ props.name }}</el-col>
+                <el-col :span="12">{{ __('String') }}</el-col>
+            </el-row>
+        </summary>
+        <el-row>
+            <el-col :span="12" :xs="24">
+                <el-input v-model="text" :type="multiLine ? 'textarea' : 'text'" :disabled="!canEdit" />
+            </el-col>
+            <el-col :span="4" :xs="8" class="flex justify-center">
+                <el-checkbox v-model="hex">{{ __('Hex') }}</el-checkbox>
+            </el-col>
+            <el-col :span="4" :xs="8" class="flex justify-center">
+                <el-checkbox v-model="multiLine">{{ __('Multi Line') }}</el-checkbox>
+            </el-col>
+            <el-col :span="4" :xs="8" class="flex justify-center">
+                <el-button @click="onClick">{{ canEdit ? __('OK') : __('Edit') }}</el-button>
+            </el-col>
+        </el-row>
+    </details>
+</template>
+
 <script setup lang="ts">
 
 import { __ } from '@/i18n/gettext';
@@ -6,7 +31,8 @@ import { ElNotification } from 'element-plus';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{
-    data: Uint8Array
+    data: Uint8Array,
+    name: string
 }>()
 const emits = defineEmits<{
     (event: 'update', value: Uint8Array): void
@@ -33,7 +59,7 @@ watch(hex, (v, oldV) => {
 
 const onClick = () => {
     if (canEdit.value) {
-        if (hex) {
+        if (hex.value) {
             const arr = fromHex(text.value)
             if (!arr) {
                 ElNotification.error({
@@ -52,19 +78,3 @@ const onClick = () => {
 
 </script>
 
-<template>
-    <el-row>
-        <el-col :span="12">
-            <el-input v-model="text" :type="multiLine ? 'textarea' : 'text'" :disabled="!canEdit" />
-        </el-col>
-        <el-col :span="4" class="flex justify-center">
-            <el-checkbox v-model="hex">{{ __('Hex') }}</el-checkbox>
-        </el-col>
-        <el-col :span="4" class="flex justify-center">
-            <el-checkbox v-model="multiLine">{{ __('Multi Line') }}</el-checkbox>
-        </el-col>
-        <el-col :span="4" class="flex justify-center">
-            <el-button @click="onClick">{{ canEdit ? __('OK') : __('Edit') }}</el-button>
-        </el-col>
-    </el-row>
-</template>

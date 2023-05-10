@@ -1,34 +1,32 @@
 <script setup lang="ts">
+import type { BDict, BInt, BList, BString } from '@/bencode';
 import { ref } from 'vue';
+import DictView from './DictView.vue';
 import IntegerView from './IntegerView.vue';
 
 const props = defineProps<{
-    data: Array<any>,
+    data: BList,
+    name: string
 }>()
 
-const value = ref(props.data)
+const list = ref(props.data)
 
 </script>
+
 <template>
-    <details>
+    <details class="mt4 pl pt pb b b-solid">
         <summary class="cursor-pointer">
             <el-row class="inline-flex w95%">
-                <el-col :span="4">{{ __('#') }}</el-col>
-                <el-col :span="4">{{ __('Type') }}</el-col>
-                <el-col :span="16">{{ __('Value') }}</el-col>
+                <el-col :span="12">{{ props.name }}</el-col>
+                <el-col :span="12">{{ __('List') }}</el-col>
             </el-row>
         </summary>
         <ul class="pl0">
-            <li v-for="(item, idx) of value" class="list-none">
-                <el-row>
-                    <el-col :span="4">{{ idx }}</el-col>
-                    <el-col :span="4">
-                        <el-text v-if="(typeof item === 'number')">{{ __('Integer') }}</el-text>
-                    </el-col>
-                    <el-col :span="16">
-                        <IntegerView :data="item" v-if="(typeof item === 'number')" />
-                    </el-col>
-                </el-row>
+            <li v-for="(value, idx) of list.value" class="list-none">
+                <StringView :data="(value as BString).value" :name="`#${idx}`" v-if="(value.Type() === 'string')" />
+                <IntegerView :data="(value as BInt).value" :name="`#${idx}`" v-if="(value.Type() === 'integer')" />
+                <ListView :data="(value as BList)" :name="`#${idx}`" v-if="(value.Type() === 'list')" />
+                <DictView :data="(value as BDict)" :name="`#${idx}`" v-if="(value.Type() === 'dict')" />
             </li>
         </ul>
     </details>

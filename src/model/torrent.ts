@@ -1,5 +1,5 @@
 interface Torrent {
-    announce: string
+    announce?: string
     'announce-list'?: string[][] // http://bittorrent.org/beps/bep_0012.html
     comment?: string // https://wiki.theory.org/BitTorrentSpecification#Metainfo_File_Structure
     'created by': string

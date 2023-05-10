@@ -106,28 +106,43 @@ function getType(value: any) {
     if (Array.isArray(value)) return 'array'
     if (value instanceof Number) return 'number'
     if (value instanceof Boolean) return 'boolean'
+    if (value instanceof Set) return 'set'
+    if (value instanceof Map) return 'map'
     if (value instanceof String) return 'string'
+    // if (value instanceof ArrayBuffer) return 'arraybuffer'
     return typeof value
 }
 
 function toBValue(v: any): BValue {
+    // console.log(typeof v, getType(v), v)
     switch (getType(v)) {
+        // case 'arraybuffer':
+        // return new BString(new Uint8Array(v as ArrayBuffer))
         case 'arraybufferview':
+            const view = v as ArrayBufferView
+            return new BString(new Uint8Array(view.buffer, view.byteOffset, view.byteLength))
         case 'string': return new BString(v)
 
         case 'number': return new BInt(v)
         case 'boolean': return new BInt(v ? 1 : 0)
 
+        case 'set':  // fallthrough
         case 'array':
             const list: BValue[] = []
-            for (let item of v) {
+            for (const item of v) {
                 list.push(toBValue(item))
             }
             return new BList(list)
 
+        case 'map':
+            const map: Record<string, BValue> = {}
+            for (const [key, value] of v) {
+                map[key] = toBValue(value)
+            }
+            return new BDict(map)
         case 'object':
             const dict: Record<string, BValue> = {}
-            for (let key in v) {
+            for (const key in v) {
                 dict[key] = toBValue(v[key])
             }
             return new BDict(dict)
