@@ -26,20 +26,50 @@
             </div>
           </el-upload>
         </div>
+        <div v-else>
+          <el-upload ref="uploadRef" drag :auto-upload="false" v-model:file-list="fileList" multiple>
+            <i i='ep-upload-filled' class="el-icon--upload inline-flex"></i>
+            <div class="el-upload__text">
+              {{ __('Drop file here or click to upload') }}
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                {{ canUploadFolder ? __('Plsease select a folder.') : folderNotSupportTip }}
+              </div>
+            </template>
+          </el-upload>
+        </div>
+
         <div class="flex justify-between">
           <el-button @click="active--">{{ __('Previous Step') }}</el-button>
-          <el-button :disabled="fileList.length == 0" type="primary" @click="active++">{{ __('Next Step') }}</el-button>
+          <el-button v-if="fileList.length > 0" @click="uploadRef?.clearFiles()">{{ __('Clear Files') }}</el-button>
+          <el-button :disabled="fileList.length == 0" type="primary" @click="fileSelected">
+            {{ __('Next Step') }}
+          </el-button>
         </div>
       </el-tab-pane>
 
       <el-tab-pane :name="items[2]" :label="__('Settings')">
         <div>
           <el-form :model="form" label-width="120px">
-            <el-form-item :label="__('File List')">
-              <el-text v-if="isSingle && fileList.length > 0">
-                {{ format(_x('file-size', '{0} ({1})'), fileList[0].name, sizeString(fileList[0].size!)) }}
-              </el-text>
+
+            <el-form-item :label="__('Folder Name')" v-if="!isSingle">
+              <el-text v-if="canUploadFolder">{{ form.folderName }}</el-text>
+              <el-input v-else v-model="form.folderName" />
             </el-form-item>
+
+            <el-form-item :label="__('File List')">
+              <ul>
+                <li v-for="(file, idx) in fileList">
+                  <el-button :icon="Delete" @click="deleteFile(idx)" />
+                  {{ format(_x('file-size', '{0} ({1})'),
+                    file.raw?.webkitRelativePath
+                      ? file.raw?.webkitRelativePath
+                      : file.name, sizeString(file.size!)) }}
+                </li>
+              </ul>
+            </el-form-item>
+
             <el-form-item :label="__('Piece Size')">
               <el-select v-model="form.pieceSize" class="w100%">
                 <el-option :label="__('Auto')" :value="0" />
@@ -77,7 +107,9 @@
           </el-form>
           <div class="flex justify-between">
             <el-button @click="active--">{{ __('Previous Step') }}</el-button>
-            <el-button type="primary" @click="submitSettings">{{ __('Next Step') }}</el-button>
+            <el-button type="primary" :disabled="fileList.length == 0" @click="submitSettings">
+              {{ __('Next Step') }}
+            </el-button>
           </div>
         </div>
       </el-tab-pane>
@@ -107,11 +139,13 @@ import type { Torrent } from '@/model/torrent';
 import format from '@/util/format';
 import { generatePieces } from '@/util/sha1';
 import { sizeString } from '@/util/size';
+import { Delete } from '@element-plus/icons-vue';
 import { ElMessage, ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 // steps(index/下标) and tabs(value/值)
 const items = ['type', 'add_file', 'settings', 'generate']
+const STEP_FILE = 1
 const STEP_SETTINGS = 2
 
 const active = ref(0)// steps
@@ -125,10 +159,20 @@ const activeName = computed({// tabs
 
 // step 1: select type
 const isSingle = ref(false)
+const canUploadFolder = false// || 'webkitdirectory' in document.createElement('input')
 const selectType = (single: boolean) => {
   isSingle.value = single
-  active.value = 1
+  active.value = STEP_FILE
+  uploadRef.value!.clearFiles();
+  if (canUploadFolder) {
+    const input = document.querySelector<HTMLInputElement>('.el-upload__input');
+    if (input) {
+      input.webkitdirectory = !single
+    }
+  }
 }
+const folderNotSupportTip = __('Your broswer does not support select folder, please select files one by one. (All files should be on the same folder.)')
+
 const descType = computed(() => {
   if (active.value > 0) {
     return isSingle.value ? _x('desc', 'Single File') : _x('desc', 'Folder')
@@ -145,19 +189,44 @@ const handleExceed: UploadProps['onExceed'] = (files) => {// 单文件: 覆盖�
   uploadRef.value!.handleStart(file)
 }
 
+function fileSelected() {
+  active.value = STEP_SETTINGS
+  form.folderName = getFolderName()
+}
+
+function getFolderName() {
+  if (canUploadFolder && fileList.value.length > 0) {
+    const path = fileList.value[0].raw?.webkitRelativePath
+    if (path) {
+      return path.split('/')[0]
+    }
+  }
+  return ''
+}
+
+function getFilePath(f: UploadUserFile) {
+  const path = f.raw?.webkitRelativePath
+  if (path) { return path }
+  return f.name
+}
+
 const descFile = computed(() => {// // step 2 desc
-  if (isSingle) {
+  if (active.value < STEP_FILE) return ''
+  if (isSingle.value) {
     let name = fileList.value[0]?.name
     if (name && name.length > 40) {
       name = name.substring(0, 18) + '...' + name.substring(name.length - 18)
     }
     return name
+  } else if (fileList.value.length > 0) {
+    return format(__('{0} Files'), fileList.value.length)
   }
   return ''
 })
 
 // step 3: settings
 const form = reactive({
+  folderName: '',
   pieceSize: 0,
   isPrivate: false,
   setCreation: true,
@@ -166,6 +235,10 @@ const form = reactive({
   comment: '',
   source: ''
 })
+
+const deleteFile = (idx: number) => {
+  fileList.value.splice(idx, 1)
+}
 
 const descSettings = computed(() => {
   if (active.value <= STEP_SETTINGS) { return '' }
@@ -184,14 +257,17 @@ const descSettings = computed(() => {
 })
 
 const submitSettings = () => {
+  if (!isSingle.value && !canUploadFolder && form.folderName === '') {
+    return showError(__('Folder name can not be empty.'))
+  }
+
   if (form.trackers !== '') {
     const trackers = form.trackers.trim().split(/\s+/g)
     for (let url of trackers) {
       try {
         new URL(url)
       } catch (e) {
-        showError(format(__('invalid tracker URL: {0}'), url))
-        return
+        return showError(format(__('invalid tracker URL: {0}'), url))
       }
     }
   }
@@ -242,48 +318,44 @@ const generate = async () => {
   progressOps.pct = 0
   progressOps.status = ''
   const start = new Date().getTime()
-  if (isSingle) {
-    if (form.trackers) {
-      const trackers = form.trackers.trim().split(/\s+/g)
-      torrent.value.announce = trackers[0]
-      torrent.value['announce-list'] = trackers.map(url => [url])
-    } else {
-      delete torrent.value.announce
-      delete torrent.value['announce-list']
-    }
+  if (form.trackers) {
+    const trackers = form.trackers.trim().split(/\s+/g)
+    torrent.value.announce = trackers[0]
+    torrent.value['announce-list'] = trackers.map(url => [url])
+  } else {
+    delete torrent.value.announce
+    delete torrent.value['announce-list']
+  }
 
-    if (form.setCreation) {
-      torrent.value['creation date'] = (new Date().getTime() / 1000) | 0
-    }
-    else { delete torrent.value['creation date'] }
+  if (form.setCreation) {
+    torrent.value['creation date'] = (new Date().getTime() / 1000) | 0
+  }
+  else { delete torrent.value['creation date'] }
 
-    if (form.comment) { torrent.value.comment = form.comment }
-    else { delete torrent.value.comment }
+  if (form.comment) { torrent.value.comment = form.comment }
+  else { delete torrent.value.comment }
 
-    const urlList = form.webSeeds.split(/\s+/g)
-    if (form.webSeeds) { torrent.value['url-list'] = urlList }
-    else { delete torrent.value['url-list'] }
+  const urlList = form.webSeeds.split(/\s+/g)
+  if (form.webSeeds) { torrent.value['url-list'] = urlList }
+  else { delete torrent.value['url-list'] }
 
+  const name = getTorrentName()
+  torrent.value.info.name = name
+  downloadLink.value!.download = name + '.torrent'
+
+  if (form.pieceSize) {
+    torrent.value.info['piece length'] = form.pieceSize
+  } else {
+    const totalSize = fileList.value.reduce((sum, i) => sum + i.size!, 0)
+    torrent.value.info['piece length'] = genPieceSize(totalSize)
+  }
+
+  if (isSingle.value) {
     const file = fileList.value[0]
-    torrent.value.info.name = file.name
-    downloadLink.value!.download = file.name + '.torrent'
-
     const fileSize = file.size!
     torrent.value.info.length = fileSize
-    if (form.pieceSize) {
-      torrent.value.info['piece length'] = form.pieceSize
-    } else {
-      // Why/How?
-      // copy from https://github.com/Kimbatt/torrent-creator/blob/gh-pages/index.ts
-      let factor = Math.round(Math.log(fileSize / 1200) / Math.log(2))
-      if (factor < 14)
-        factor = 14; // => 16 KB
-      else if (factor > 24)
-        factor = 24; // => 16 MB
-      torrent.value.info['piece length'] = 1 << factor;
-    }
 
-    const piece = await generatePieces(
+    const piecesList = await generatePieces(
       file.raw!,
       torrent.value.info['piece length'],
       (current: number, total: number) => {
@@ -293,14 +365,21 @@ const generate = async () => {
         }
       },
     )
-    const length = piece.reduce((acc, i) => acc + i.length, 0)
+    const length = piecesList.reduce((acc, i) => acc + i.length, 0)
     const pieces = new Uint8Array(length)
     let i = 0
-    for (let p of piece) {
+    for (let p of piecesList) {
       pieces.set(p, i)
       i += p.length
     }
     torrent.value.info.pieces = pieces
+  } else { // multi file
+    torrent.value.info.files = fileList.value.map(f => ({
+      length: f.size!,
+      path: getFilePath(f).split('/'),
+    }))
+    // todo
+
   }
   costMs.value = new Date().getTime() - start
   ElMessage.success({
@@ -312,6 +391,25 @@ const generate = async () => {
   downloadURL.value = URL.createObjectURL(new Blob([toBValue(torrent.value).Encode()]))
   downloadLink.value!.href = downloadURL.value
 }
+
+function getTorrentName() {
+  if (isSingle.value) {
+    return fileList.value[0].name
+  }
+  return form.folderName
+}
+
+function genPieceSize(totalSize: number) {
+  // Why/How?
+  // copy from https://github.com/Kimbatt/torrent-creator/blob/gh-pages/index.ts
+  let factor = Math.round(Math.log(totalSize / 1200) / Math.log(2))
+  if (factor < 14)
+    factor = 14; // => 16 KB
+  else if (factor > 24)
+    factor = 24; // => 16 MB
+  return 1 << factor;
+}
+
 const download = () => {
   active.value = items.length
   downloadLink.value!.click()

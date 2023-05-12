@@ -42,4 +42,31 @@ async function generatePieces(file: UploadRawFile, pieceSize: number, onProgress
     return result
 }
 
+type progress = (processedBytes: number, totalBytes: number, processedFile: number, totalFile: number) => void
+
+async function gen(files: UploadRawFile[], pieceSize: number, onProgress: progress) {
+    const fileLength = files.length
+    const totalSize = files.reduce((sum, f) => sum + f.size, 0)
+    let fileIndex = 0
+    let filePos = 0
+    for (let processedBytes = 0; processedBytes < totalSize;) {
+        onProgress(processedBytes, totalSize, fileIndex, fileLength)
+        const currentFile = files[fileIndex]
+        const left = currentFile.size - filePos
+        let piece;
+        if (left >= pieceSize) { // 当前文件还有一个分片的大小
+            piece = await currentFile.slice(filePos, filePos + pieceSize).arrayBuffer()
+        } else {
+            if (fileIndex < fileLength) { // 后面还有文件 拼接起来
+                piece = new Uint8Array(pieceSize)
+                // 先把当前文件尾部读完
+                const part = await currentFile.slice(filePos).arrayBuffer()
+                piece.set(new Uint8Array(part))
+                // 然后拼接下一个文件
+                fileIndex++//todo
+            }
+        }
+    }
+}
+
 export { SHA1, sha1, generatePieces }
