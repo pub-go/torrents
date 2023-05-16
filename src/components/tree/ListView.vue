@@ -31,13 +31,13 @@ const update = (idx: number, val: BValue) => {
         </summary>
         <ul class="pl0">
             <li v-for="(value, idx) of list.value" class="list-none">
-                <StringView :data="(value as BString)" @update="val => update(idx, val)" :name="`#${idx}`"
+                <StringView :data="(value as BString)" @update="(val: BString) => update(idx, val)" :name="`#${idx}`"
                     v-if="(value.Type() === 'string')" />
-                <IntegerView :data="(value as BInt)" @update="val => update(idx, val)" :name="`#${idx}`"
+                <IntegerView :data="(value as BInt)" @update="(val: BInt) => update(idx, val)" :name="`#${idx}`"
                     v-if="(value.Type() === 'integer')" />
-                <ListView :data="(value as BList)" @update="val => update(idx, val)" :name="`#${idx}`"
+                <ListView :data="(value as BList)" @update="(val: BList) => update(idx, val)" :name="`#${idx}`"
                     v-if="(value.Type() === 'list')" />
-                <DictView :data="(value as BDict)" @update="val => update(idx, val)" :name="`#${idx}`"
+                <DictView :data="(value as BDict)" @update="(val: BDict) => update(idx, val)" :name="`#${idx}`"
                     v-if="(value.Type() === 'dict')" />
             </li>
         </ul>

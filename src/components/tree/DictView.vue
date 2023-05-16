@@ -8,12 +8,13 @@
         </summary>
         <ul class="pl0">
             <li v-for="(value, key) in dict.value" class="list-none">
-                <StringView :data="(value as BString)" @update="val => update(key, val)" :name="key"
+                <StringView :data="(value as BString)" @update="(val: BString) => update(key, val)" :name="key"
                     v-if="(value.Type() === 'string')" />
-                <IntegerView :data="(value as BInt)" @update="val => update(key, val)" :name="key"
+                <IntegerView :data="(value as BInt)" @update="(val: BInt) => update(key, val)" :name="key"
                     v-if="(value.Type() === 'integer')" />
-                <ListView :data="(value as BList)" :name="key" v-if="(value.Type() === 'list')" />
-                <DictView :data="(value as BDict)" @update="val => update(key, val)" :name="key"
+                <ListView :data="(value as BList)" @update="(val: BList) => update(key, val)" :name="key"
+                    v-if="(value.Type() === 'list')" />
+                <DictView :data="(value as BDict)" @update="(val: BDict) => update(key, val)" :name="key"
                     v-if="(value.Type() === 'dict')" />
             </li>
         </ul>

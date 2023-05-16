@@ -1,5 +1,5 @@
 <template>
-    <DictView :data="dict" @update="val => dict = val" :name="props.name" />
+    <DictView :data="dict" @update="(val: BDict) => dict = val" :name="props.name" />
     <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
     <el-button type="primary" @click="download">{{ __('Download') }}</el-button>
 </template>

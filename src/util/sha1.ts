@@ -54,14 +54,15 @@ type onProgress = (current: number, total: number) => void
 const cache = new Map<string, Uint8Array>()
 
 async function genFilesSha1(files: UploadRawFile[], pieceSize: number, onProgress: onProgress) {
+    const totalSize = files.reduce((sum, f) => sum + f.size, 0)
     const key = files.map(f => f.uid).join('|') + pieceSize
     const cached = cache.get(key)
     if (cached) {
+        onProgress(totalSize, totalSize)
         return cached
     }
     let readBytes = 0
     const hashArray: Uint8Array[] = []
-    const totalSize = files.reduce((sum, f) => sum + f.size, 0)
     for await (let piece of readFiles(files, totalSize, pieceSize)) {
         if (piece) {
             readBytes += piece.byteLength

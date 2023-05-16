@@ -182,7 +182,7 @@ msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
 
 #: src/components/tree/ListView.vue:21
 msgid "List"
-msgstr "文件列表"
+msgstr "列表"
 
 #: src/components/tree/StringView.vue:17
 msgid "Multi Line"
