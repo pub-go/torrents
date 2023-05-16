@@ -22,7 +22,7 @@
 import { BDict, decode } from '@/bencode';
 import DictView from '@/components/tree/DictView.vue';
 import { __ } from '@/i18n/gettext';
-import format from '@/util/format';
+import { format } from '@/util/format';
 import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus';
 import { ElNotification } from 'element-plus';
 import { computed, ref } from 'vue';

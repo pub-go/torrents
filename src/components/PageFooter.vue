@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const gitInfo = __GIT_INFO__
 const date = new Date(Number(gitInfo.timestampt) * 1000)
-import format from '../util/format';
+import {format} from '@/util/format'
+
 </script>
 <template>
     <el-row class="justify-between">

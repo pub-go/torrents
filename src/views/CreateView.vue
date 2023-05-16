@@ -136,7 +136,7 @@
 import { toBValue } from '@/bencode';
 import { __, _x } from '@/i18n/gettext';
 import type { Torrent } from '@/model/torrent';
-import format from '@/util/format';
+import { duration, format, toFixed } from '@/util/format';
 import { generatePieces } from '@/util/sha1';
 import { sizeString } from '@/util/size';
 import { Delete } from '@element-plus/icons-vue';
@@ -291,7 +291,8 @@ const progressOps = reactive({
 const costMs = ref(0)
 const descGenerate = computed(() => {
   if (done.value) {
-    return format(__('done ({0} ms)'), costMs.value)
+    const d = duration(costMs.value)
+    return format(__('done ({0})'), format(__(d.template), d.args))
   }
   return ''
 })
@@ -359,7 +360,7 @@ const generate = async () => {
       file.raw!,
       torrent.value.info['piece length'],
       (current: number, total: number) => {
-        progressOps.pct = 100 * current / total
+        progressOps.pct = toFixed(100 * current / total, 2)
         if (current === total) {
           progressOps.status = 'success'
         }
@@ -382,8 +383,9 @@ const generate = async () => {
 
   }
   costMs.value = new Date().getTime() - start
+  const d = duration(costMs.value)
   ElMessage.success({
-    message: format(__('Generate torrent file success. (cost {0} ms)'), costMs.value),
+    message: format(__('Generate torrent file success. ({0})'), format(__(d.template), d.args)),
   })
   done.value = true
   URL.revokeObjectURL(downloadURL.value)

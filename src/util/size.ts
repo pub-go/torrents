@@ -1,4 +1,4 @@
-import format from "./format"
+import { format } from "./format"
 
 function sizeString(size: number) {
     if (size < 1024) {

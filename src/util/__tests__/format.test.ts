@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import format from '../format';
+import { duration, format, toFixed } from '../format';
 
 
 describe('format', () => {
@@ -20,5 +20,36 @@ describe('format', () => {
     it('too many args', () => {
         expect(format('Hello {1}, My name is {0}', "Tom", "Alice", "Other"))
             .toBe('Hello Alice, My name is Tom')
+    })
+})
+
+describe('duration', () => {
+    it('format ms', () => {
+        expect(duration(999)).deep.eq({ template: '{0} ms', args: 999 })
+        expect(duration(1000)).deep.eq({ template: '{0} seconds', args: 1 })
+        expect(duration(1010)).deep.eq({ template: '{0} seconds', args: 1.01 })
+        expect(duration(6000)).deep.eq({ template: '{0} seconds', args: 6 })
+        expect(duration(60000)).deep.eq({ template: '{0} minutes', args: 1 })
+    })
+})
+
+describe('toFixed', () => {
+    it('-0.6向负方向舍去, -0.5向正方向入, 0.4向负方向舍去, 0.5向正方向入', () => {
+        expect(toFixed(1, 0)).eq(1)
+        expect(toFixed(1.1, 0)).eq(1)
+        expect(toFixed(1.5, 0)).eq(2)
+        expect(toFixed(-1.1, 0)).eq(-1)
+        expect(toFixed(-1.5, 0)).eq(-1)
+        expect(toFixed(-1.6, 0)).eq(-2)
+    })
+    it('保留小数位数', () => {
+        expect(toFixed(3.14159, 0)).eq(3)
+        expect(toFixed(3.14159, 1)).eq(3.1)
+        expect(toFixed(3.14159, 2)).eq(3.14)
+        expect(toFixed(3.14159, 3)).eq(3.142)
+        expect(toFixed(3.14159, 4)).eq(3.1416)
+        expect(toFixed(3.14159, 5)).eq(3.14159)
+        expect(toFixed(3.14159, 6)).eq(3.14159) // 和 number.toFixed 返回 string(末尾可以补0) 不同
+        expect(toFixed(3.14159, 6)).eq(3.141590)// number 类型末尾的 0 其实就是相当于没写
     })
 })

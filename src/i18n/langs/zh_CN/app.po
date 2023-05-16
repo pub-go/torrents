@@ -8,9 +8,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/views/CreateView.vue:216
+#: src/views/CreateView.vue:222
 msgid "{0} Files"
 msgstr "{0} 个文件"
+
+#: src/util/format.ts:18
+msgid "{0} minutes"
+msgstr "{0} 分钟"
+
+#: src/util/format.ts:13
+msgid "{0} ms"
+msgstr "{0} 毫秒"
+
+#: src/util/format.ts:16
+msgid "{0} seconds"
+msgstr "{0} 秒"
 
 #: src/views/CreateView.vue:82
 msgid "1 MB"
@@ -74,9 +86,8 @@ msgid "Can not view this file: {0}"
 msgstr "无法查看该文件: {0}"
 
 #: src/views/CreateView.vue:44 src/views/CreateView.vue:45
-#, fuzzy
 msgid "Clear Files"
-msgstr "单文件"
+msgstr "清除文件"
 
 #: src/views/CreateView.vue:101
 msgid "Comment"
@@ -95,9 +106,9 @@ msgstr "创建时间"
 msgid "Dict"
 msgstr "字典"
 
-#: src/views/CreateView.vue:285
-msgid "done ({0} ms)"
-msgstr "完成（{0} 毫秒）"
+#: src/views/CreateView.vue:295
+msgid "done ({0})"
+msgstr "完成（{0}）"
 
 #: src/views/CreateView.vue:122 src/views/CreateView.vue:123
 #: src/views/CreateView.vue:124 src/views/CreateView.vue:125
@@ -114,7 +125,7 @@ msgstr "拖放文件至此，或点击此处选择文件"
 msgid "Edit"
 msgstr "编辑"
 
-#: src/components/tree/StringView.vue:66 src/views/CreateView.vue:271
+#: src/components/tree/StringView.vue:66 src/views/CreateView.vue:280
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr "错误"
@@ -124,17 +135,20 @@ msgid "File List"
 msgstr "文件列表"
 
 #: src/views/CreateView.vue:56
-#, fuzzy
 msgid "Folder Name"
-msgstr "文件夹"
+msgstr "文件夹名称"
+
+#: src/views/CreateView.vue:261
+msgid "Folder name can not be empty."
+msgstr "文件夹名称不能为空。"
 
 #: src/views/CreateView.vue:233 src/views/CreateView.vue:8
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:374
-msgid "Generate torrent file success. (cost {0} ms)"
-msgstr "生成种子文件成功。（用时 {0} 毫秒）"
+#: src/views/CreateView.vue:388
+msgid "Generate torrent file success. ({0})"
+msgstr "生成种子文件成功。（{0}）"
 
 #: src/components/tree/StringView.vue:14
 msgid "Hex"
@@ -153,7 +167,7 @@ msgstr "整数"
 msgid "Invalid hex string"
 msgstr "非法的十六进制"
 
-#: src/views/CreateView.vue:260
+#: src/views/CreateView.vue:270
 msgid "invalid tracker URL: {0}"
 msgstr "无法识别的 tracker URL: {0}"
 
@@ -161,12 +175,11 @@ msgstr "无法识别的 tracker URL: {0}"
 msgid "Is Private"
 msgstr "私有种子(PT)"
 
-#: src/components/PageFooter.vue:12
+#: src/components/PageFooter.vue:13
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
 
 #: src/components/tree/ListView.vue:21
-#, fuzzy
 msgid "List"
 msgstr "文件列表"
 
@@ -247,7 +260,9 @@ msgstr "下载直链"
 msgid ""
 "Your broswer does not support select folder, please select files one by one. "
 "(All files should be on the same folder.)"
-msgstr "您使用的浏览器不支持选择文件夹，请一个一个地选择文件。（所有文件应当在同一个文件夹中，暂不支持跨文件夹/子文件夹）"
+msgstr ""
+"您使用的浏览器不支持选择文件夹，请一个一个地选择文件。（所有文件应当在同一个"
+"文件夹中，暂不支持跨文件夹/子文件夹）"
 
 #: src/views/CreateView.vue:15
 msgctxt "btn"
@@ -279,12 +294,12 @@ msgctxt "page title"
 msgid "{0} :: {1}"
 msgstr "{0} :: {1}"
 
-#: src/views/CreateView.vue:246
+#: src/views/CreateView.vue:252
 msgctxt "settings desc"
 msgid "BT ({0})"
 msgstr "BT ({0})"
 
-#: src/views/CreateView.vue:244
+#: src/views/CreateView.vue:250
 msgctxt "settings desc"
 msgid "PT ({0})"
 msgstr "PT ({0})"

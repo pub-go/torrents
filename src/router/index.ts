@@ -1,4 +1,4 @@
-import format from '@/util/format'
+import { format } from '@/util/format'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 const __ = (a: string) => a // mark

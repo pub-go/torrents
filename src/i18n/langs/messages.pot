@@ -2,8 +2,20 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/views/CreateView.vue:216
+#: src/views/CreateView.vue:222
 msgid "{0} Files"
+msgstr ""
+
+#: src/util/format.ts:18
+msgid "{0} minutes"
+msgstr ""
+
+#: src/util/format.ts:13
+msgid "{0} ms"
+msgstr ""
+
+#: src/util/format.ts:16
+msgid "{0} seconds"
 msgstr ""
 
 #: src/views/CreateView.vue:82
@@ -92,8 +104,8 @@ msgstr ""
 msgid "Dict"
 msgstr ""
 
-#: src/views/CreateView.vue:285
-msgid "done ({0} ms)"
+#: src/views/CreateView.vue:295
+msgid "done ({0})"
 msgstr ""
 
 #: src/views/CreateView.vue:122
@@ -118,7 +130,7 @@ msgid "Edit"
 msgstr ""
 
 #: src/components/tree/StringView.vue:66
-#: src/views/CreateView.vue:271
+#: src/views/CreateView.vue:280
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr ""
@@ -131,13 +143,17 @@ msgstr ""
 msgid "Folder Name"
 msgstr ""
 
+#: src/views/CreateView.vue:261
+msgid "Folder name can not be empty."
+msgstr ""
+
 #: src/views/CreateView.vue:233
 #: src/views/CreateView.vue:8
 msgid "Generate"
 msgstr ""
 
-#: src/views/CreateView.vue:374
-msgid "Generate torrent file success. (cost {0} ms)"
+#: src/views/CreateView.vue:388
+msgid "Generate torrent file success. ({0})"
 msgstr ""
 
 #: src/components/tree/StringView.vue:14
@@ -158,7 +174,7 @@ msgstr ""
 msgid "Invalid hex string"
 msgstr ""
 
-#: src/views/CreateView.vue:260
+#: src/views/CreateView.vue:270
 msgid "invalid tracker URL: {0}"
 msgstr ""
 
@@ -166,7 +182,7 @@ msgstr ""
 msgid "Is Private"
 msgstr ""
 
-#: src/components/PageFooter.vue:12
+#: src/components/PageFooter.vue:13
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr ""
 
@@ -260,7 +276,7 @@ msgid "Web Seeds"
 msgstr ""
 
 #: src/views/CreateView.vue:174
-msgid "Your broswer does not support select folder, please select files one by one. (All files should be onthe same folder.)"
+msgid "Your broswer does not support select folder, please select files one by one. (All files should be on the same folder.)"
 msgstr ""
 
 #: src/views/CreateView.vue:15
@@ -294,12 +310,12 @@ msgctxt "page title"
 msgid "{0} :: {1}"
 msgstr ""
 
-#: src/views/CreateView.vue:246
+#: src/views/CreateView.vue:252
 msgctxt "settings desc"
 msgid "BT ({0})"
 msgstr ""
 
-#: src/views/CreateView.vue:244
+#: src/views/CreateView.vue:250
 msgctxt "settings desc"
 msgid "PT ({0})"
 msgstr ""
