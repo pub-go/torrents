@@ -120,7 +120,7 @@
           class="mb-4" :striped="progressOps.pct < 100" :striped-flow="progressOps.pct < 100" />
 
         <div class="flex justify-between">
-          <el-button @click="active = STEP_SETTINGS; done = false">{{ __('Previous Step') }}</el-button>
+          <el-button @click="active = STEP_SETTINGS; done = false; genVersion = ''">{{ __('Previous Step') }}</el-button>
           <el-button :disabled="!done" type="info" :icon="showPreview ? ArrowUp : ArrowDown" @click="togglePreview">
             {{ __('Preview') }}
           </el-button>
@@ -317,12 +317,14 @@ const torrent = ref<Torrent>({
 const downloadLink = ref<HTMLAnchorElement>()
 const downloadURL = ref('')
 
+const genVersion = ref('')
 const generate = async () => {
   done.value = false
   showPreview.value = false
   progressOps.pct = 0
   progressOps.status = ''
   const start = new Date().getTime()
+  genVersion.value = start + ''
   if (form.trackers) {
     const trackers = form.trackers.trim().split(/\s+/g)
     torrent.value.announce = trackers[0]
@@ -364,16 +366,23 @@ const generate = async () => {
     }))
   }
 
-  torrent.value.info.pieces = await genFilesSha1(
-    fileList.value.map(f => f.raw!),
-    torrent.value.info['piece length'],
-    (read: number, total: number) => {
-      progressOps.pct = toFixed(100 * read / total, 2)
-      if (read === total) {
-        progressOps.status = 'success'
-      }
-    },
-  );
+  try {
+    torrent.value.info.pieces = await genFilesSha1(
+      fileList.value.map(f => f.raw!),
+      torrent.value.info['piece length'],
+      genVersion.value,
+      (read: number, total: number, version: string) => {
+        progressOps.pct = toFixed(100 * read / total, 2)
+        if (read === total) {
+          progressOps.status = 'success'
+        }
+        return version == genVersion.value
+      },
+    );
+  } catch {
+    ElMessage.info({ message: __('task canceled.') })
+    return
+  }
 
   costMs.value = new Date().getTime() - start
   const d = duration(costMs.value)

@@ -49,16 +49,16 @@ function readFiles(files: UploadRawFile[], totalSize: number, pieceSize: number)
     }
 }
 
-type onProgress = (current: number, total: number) => void
+type onProgress = (current: number, total: number, version: string) => boolean
 
 const cache = new Map<string, Uint8Array>()
 
-async function genFilesSha1(files: UploadRawFile[], pieceSize: number, onProgress: onProgress) {
+async function genFilesSha1(files: UploadRawFile[], pieceSize: number, version: string, onProgress: onProgress) {
     const totalSize = files.reduce((sum, f) => sum + f.size, 0)
     const key = files.map(f => f.uid).join('|') + pieceSize
     const cached = cache.get(key)
     if (cached) {
-        onProgress(totalSize, totalSize)
+        onProgress(totalSize, totalSize, version)
         return cached
     }
     let readBytes = 0
@@ -66,7 +66,9 @@ async function genFilesSha1(files: UploadRawFile[], pieceSize: number, onProgres
     for await (let piece of readFiles(files, totalSize, pieceSize)) {
         if (piece) {
             readBytes += piece.byteLength
-            onProgress(readBytes, totalSize)
+            if (!onProgress(readBytes, totalSize, version)) {
+                throw new Error('Canceled')
+            }
             const hash = await sha1(piece)
             hashArray.push(new Uint8Array(hash))
         }

@@ -111,8 +111,8 @@ msgstr ""
 msgid "done ({0})"
 msgstr ""
 
-#: src/views/CreateView.vue:122 src/views/CreateView.vue:123
-#: src/views/CreateView.vue:124 src/views/CreateView.vue:126
+#: src/components/tree/DictEdit.vue:3 src/components/tree/DictEdit.vue:4
+#: src/views/CreateView.vue:125 src/views/CreateView.vue:126
 #: src/views/CreateView.vue:127 src/views/CreateView.vue:128
 msgid "Download"
 msgstr ""
@@ -123,11 +123,11 @@ msgstr ""
 msgid "Drop file here or click to upload"
 msgstr ""
 
-#: src/components/tree/IntegerView.vue:34 src/components/tree/StringView.vue:20
+#: src/components/tree/IntegerView.vue:35 src/components/tree/StringView.vue:20
 msgid "Edit"
 msgstr ""
 
-#: src/components/tree/StringView.vue:66 src/views/CreateView.vue:283
+#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:283
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr ""
@@ -148,7 +148,7 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: src/views/CreateView.vue:381
+#: src/views/CreateView.vue:391
 msgid "Generate torrent file success. ({0})"
 msgstr ""
 
@@ -161,11 +161,11 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: src/components/tree/IntegerView.vue:26
+#: src/components/tree/IntegerView.vue:27
 msgid "Integer"
 msgstr ""
 
-#: src/components/tree/StringView.vue:67
+#: src/components/tree/StringView.vue:68
 msgid "Invalid hex string"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr ""
 
-#: src/components/tree/ListView.vue:21
+#: src/components/tree/ListView.vue:29
 msgid "List"
 msgstr ""
 
@@ -194,11 +194,11 @@ msgstr ""
 msgid "Next Step"
 msgstr ""
 
-#: src/views/EditView.vue:55
+#: src/views/EditView.vue:54
 msgid "not torrent file"
 msgstr ""
 
-#: src/components/tree/IntegerView.vue:34 src/components/tree/StringView.vue:20
+#: src/components/tree/IntegerView.vue:35 src/components/tree/StringView.vue:20
 msgid "OK"
 msgstr ""
 
@@ -214,8 +214,8 @@ msgstr ""
 msgid "Plsease select a folder."
 msgstr ""
 
-#: src/views/CreateView.vue:124 src/views/CreateView.vue:125
-#: src/views/CreateView.vue:126
+#: src/views/CreateView.vue:123 src/views/CreateView.vue:124
+#: src/views/CreateView.vue:125
 msgid "Preview"
 msgstr ""
 
@@ -244,6 +244,10 @@ msgstr ""
 
 #: src/components/tree/StringView.vue:6
 msgid "String"
+msgstr ""
+
+#: src/views/CreateView.vue:384
+msgid "task canceled."
 msgstr ""
 
 #: src/views/CreateView.vue:95

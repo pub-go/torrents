@@ -110,8 +110,8 @@ msgstr "字典"
 msgid "done ({0})"
 msgstr "完成（{0}）"
 
-#: src/views/CreateView.vue:122 src/views/CreateView.vue:123
-#: src/views/CreateView.vue:124 src/views/CreateView.vue:126
+#: src/components/tree/DictEdit.vue:3 src/components/tree/DictEdit.vue:4
+#: src/views/CreateView.vue:125 src/views/CreateView.vue:126
 #: src/views/CreateView.vue:127 src/views/CreateView.vue:128
 msgid "Download"
 msgstr "下载"
@@ -122,11 +122,11 @@ msgstr "下载"
 msgid "Drop file here or click to upload"
 msgstr "拖放文件至此，或点击此处选择文件"
 
-#: src/components/tree/IntegerView.vue:34 src/components/tree/StringView.vue:20
+#: src/components/tree/IntegerView.vue:35 src/components/tree/StringView.vue:20
 msgid "Edit"
 msgstr "编辑"
 
-#: src/components/tree/StringView.vue:66 src/views/CreateView.vue:283
+#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:283
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr "错误"
@@ -147,7 +147,7 @@ msgstr "文件夹名称不能为空。"
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:381
+#: src/views/CreateView.vue:391
 msgid "Generate torrent file success. ({0})"
 msgstr "生成种子文件成功。（{0}）"
 
@@ -160,11 +160,11 @@ msgstr "16进制"
 msgid "Home"
 msgstr "首页"
 
-#: src/components/tree/IntegerView.vue:26
+#: src/components/tree/IntegerView.vue:27
 msgid "Integer"
 msgstr "整数"
 
-#: src/components/tree/StringView.vue:67
+#: src/components/tree/StringView.vue:68
 msgid "Invalid hex string"
 msgstr "非法的十六进制"
 
@@ -180,7 +180,7 @@ msgstr "私有种子(PT)"
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
 
-#: src/components/tree/ListView.vue:21
+#: src/components/tree/ListView.vue:29
 msgid "List"
 msgstr "列表"
 
@@ -193,11 +193,11 @@ msgstr "多行"
 msgid "Next Step"
 msgstr "下一步"
 
-#: src/views/EditView.vue:55
+#: src/views/EditView.vue:54
 msgid "not torrent file"
 msgstr "不是种子文件"
 
-#: src/components/tree/IntegerView.vue:34 src/components/tree/StringView.vue:20
+#: src/components/tree/IntegerView.vue:35 src/components/tree/StringView.vue:20
 msgid "OK"
 msgstr "完成"
 
@@ -213,8 +213,8 @@ msgstr "分片大小"
 msgid "Plsease select a folder."
 msgstr "请选择一个文件夹"
 
-#: src/views/CreateView.vue:124 src/views/CreateView.vue:125
-#: src/views/CreateView.vue:126
+#: src/views/CreateView.vue:123 src/views/CreateView.vue:124
+#: src/views/CreateView.vue:125
 msgid "Preview"
 msgstr "预览"
 
@@ -244,6 +244,10 @@ msgstr "来源"
 #: src/components/tree/StringView.vue:6
 msgid "String"
 msgstr "字符串"
+
+#: src/views/CreateView.vue:384
+msgid "task canceled."
+msgstr "任务已取消。"
 
 #: src/views/CreateView.vue:95
 msgid "Trackers"

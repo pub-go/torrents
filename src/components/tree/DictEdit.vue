@@ -1,7 +1,9 @@
 <template>
-    <DictView :data="dict" @update="(val: BDict) => dict = val" :name="props.name" />
-    <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
-    <el-button type="primary" @click="download">{{ __('Download') }}</el-button>
+    <el-container class="is-vertical">
+        <DictView :data="dict" @update="(val: BDict) => dict = val" :name="props.name" />
+        <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
+        <el-button type="primary" @click="download" class="mt4">{{ __('Download') }}</el-button>
+    </el-container>
 </template>
 <script setup lang="ts">
 import type { BDict } from '@/bencode';
