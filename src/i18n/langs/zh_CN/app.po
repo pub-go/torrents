@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/views/CreateView.vue:222
+#: src/views/CreateView.vue:225
 msgid "{0} Files"
 msgstr "{0} 个文件"
 
@@ -106,12 +106,13 @@ msgstr "创建时间"
 msgid "Dict"
 msgstr "字典"
 
-#: src/views/CreateView.vue:295
+#: src/views/CreateView.vue:298
 msgid "done ({0})"
 msgstr "完成（{0}）"
 
 #: src/views/CreateView.vue:122 src/views/CreateView.vue:123
-#: src/views/CreateView.vue:124 src/views/CreateView.vue:125
+#: src/views/CreateView.vue:124 src/views/CreateView.vue:126
+#: src/views/CreateView.vue:127 src/views/CreateView.vue:128
 msgid "Download"
 msgstr "下载"
 
@@ -125,7 +126,7 @@ msgstr "拖放文件至此，或点击此处选择文件"
 msgid "Edit"
 msgstr "编辑"
 
-#: src/components/tree/StringView.vue:66 src/views/CreateView.vue:280
+#: src/components/tree/StringView.vue:66 src/views/CreateView.vue:283
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr "错误"
@@ -138,7 +139,7 @@ msgstr "文件列表"
 msgid "Folder Name"
 msgstr "文件夹名称"
 
-#: src/views/CreateView.vue:261
+#: src/views/CreateView.vue:264
 msgid "Folder name can not be empty."
 msgstr "文件夹名称不能为空。"
 
@@ -146,7 +147,7 @@ msgstr "文件夹名称不能为空。"
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:388
+#: src/views/CreateView.vue:381
 msgid "Generate torrent file success. ({0})"
 msgstr "生成种子文件成功。（{0}）"
 
@@ -167,7 +168,7 @@ msgstr "整数"
 msgid "Invalid hex string"
 msgstr "非法的十六进制"
 
-#: src/views/CreateView.vue:270
+#: src/views/CreateView.vue:273
 msgid "invalid tracker URL: {0}"
 msgstr "无法识别的 tracker URL: {0}"
 
@@ -211,6 +212,11 @@ msgstr "分片大小"
 #: src/views/CreateView.vue:36 src/views/CreateView.vue:37
 msgid "Plsease select a folder."
 msgstr "请选择一个文件夹"
+
+#: src/views/CreateView.vue:124 src/views/CreateView.vue:125
+#: src/views/CreateView.vue:126
+msgid "Preview"
+msgstr "预览"
 
 #: src/views/CreateView.vue:108 src/views/CreateView.vue:109
 #: src/views/CreateView.vue:121 src/views/CreateView.vue:122
@@ -256,7 +262,7 @@ msgstr "查看/编辑"
 msgid "Web Seeds"
 msgstr "下载直链"
 
-#: src/views/CreateView.vue:174
+#: src/views/CreateView.vue:177
 msgid ""
 "Your broswer does not support select folder, please select files one by one. "
 "(All files should be on the same folder.)"
@@ -274,12 +280,12 @@ msgctxt "btn"
 msgid "Single File"
 msgstr "单文件"
 
-#: src/views/CreateView.vue:178
+#: src/views/CreateView.vue:181
 msgctxt "desc"
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/views/CreateView.vue:178
+#: src/views/CreateView.vue:181
 msgctxt "desc"
 msgid "Single File"
 msgstr "单文件"
@@ -294,12 +300,12 @@ msgctxt "page title"
 msgid "{0} :: {1}"
 msgstr "{0} :: {1}"
 
-#: src/views/CreateView.vue:252
+#: src/views/CreateView.vue:255
 msgctxt "settings desc"
 msgid "BT ({0})"
 msgstr "BT ({0})"
 
-#: src/views/CreateView.vue:250
+#: src/views/CreateView.vue:253
 msgctxt "settings desc"
 msgid "PT ({0})"
 msgstr "PT ({0})"

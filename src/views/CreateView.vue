@@ -122,24 +122,27 @@
         <div class="flex justify-between">
           <el-button @click="active = STEP_SETTINGS; done = false">{{ __('Previous Step') }}</el-button>
           <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
+          <el-button :disabled="!done" type="info" :icon="showPreview ? ArrowUp : ArrowDown" @click="togglePreview">
+            {{ __('Preview') }}
+          </el-button>
           <el-button :disabled="!done" type="primary" @click="download">{{ __('Download') }}</el-button>
         </div>
+        <DictView v-if="showPreview" :data="dict" name="torrent" />
       </el-tab-pane>
-
     </el-tabs>
-
   </el-container>
 </template>
 
 
 <script setup lang="ts">
-import { toBValue } from '@/bencode';
+import { BDict, toBValue } from '@/bencode';
+import DictView from '@/components/tree/DictView.vue';
 import { __, _x } from '@/i18n/gettext';
 import type { Torrent } from '@/model/torrent';
 import { duration, format, toFixed } from '@/util/format';
-import { generatePieces } from '@/util/sha1';
+import { genFilesSha1 } from '@/util/sha1';
 import { sizeString } from '@/util/size';
-import { Delete } from '@element-plus/icons-vue';
+import { ArrowDown, ArrowUp, Delete } from '@element-plus/icons-vue';
 import { ElMessage, ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
@@ -316,6 +319,7 @@ const downloadURL = ref('')
 
 const generate = async () => {
   done.value = false
+  showPreview.value = false
   progressOps.pct = 0
   progressOps.status = ''
   const start = new Date().getTime()
@@ -352,36 +356,25 @@ const generate = async () => {
   }
 
   if (isSingle.value) {
-    const file = fileList.value[0]
-    const fileSize = file.size!
-    torrent.value.info.length = fileSize
-
-    const piecesList = await generatePieces(
-      file.raw!,
-      torrent.value.info['piece length'],
-      (current: number, total: number) => {
-        progressOps.pct = toFixed(100 * current / total, 2)
-        if (current === total) {
-          progressOps.status = 'success'
-        }
-      },
-    )
-    const length = piecesList.reduce((acc, i) => acc + i.length, 0)
-    const pieces = new Uint8Array(length)
-    let i = 0
-    for (let p of piecesList) {
-      pieces.set(p, i)
-      i += p.length
-    }
-    torrent.value.info.pieces = pieces
-  } else { // multi file
+    torrent.value.info.length = fileList.value[0].size!
+  } else {
     torrent.value.info.files = fileList.value.map(f => ({
       length: f.size!,
       path: getFilePath(f).split('/'),
     }))
-    // todo
-
   }
+
+  torrent.value.info.pieces = await genFilesSha1(
+    fileList.value.map(f => f.raw!),
+    torrent.value.info['piece length'],
+    (read: number, total: number) => {
+      progressOps.pct = toFixed(100 * read / total, 2)
+      if (read === total) {
+        progressOps.status = 'success'
+      }
+    },
+  );
+
   costMs.value = new Date().getTime() - start
   const d = duration(costMs.value)
   ElMessage.success({
@@ -417,6 +410,12 @@ const download = () => {
   downloadLink.value!.click()
 }
 
+const showPreview = ref(false)
+const dict = ref(new BDict({}))
+const togglePreview = () => {
+  showPreview.value = !showPreview.value
+  dict.value = toBValue(torrent.value) as BDict
+}
 </script>
 
 

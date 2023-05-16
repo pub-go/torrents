@@ -136,13 +136,19 @@ function toBValue(v: any): BValue {
 
         case 'map':
             const map: Record<string, BValue> = {}
-            for (const [key, value] of v) {
+            for (const key of v.keys().sort()) {
+                const value = v[key]
                 map[key] = toBValue(value)
             }
             return new BDict(map)
         case 'object':
             const dict: Record<string, BValue> = {}
+            const keys: string[] = []
             for (const key in v) {
+                keys.push(key)
+            }
+            keys.sort()
+            for (const key of keys) {
                 dict[key] = toBValue(v[key])
             }
             return new BDict(dict)
