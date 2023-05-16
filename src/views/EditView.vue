@@ -13,14 +13,13 @@
                 {{ __('View') }}
             </el-button>
         </div>
-        <DictView :data="dict" name="root" v-if="show" />
-        <div hidden><el-button @click="debug">log</el-button></div>
+        <DictEdit :data="dict" :name="fileName" v-if="show" />
     </el-container>
 </template>
 
 <script setup lang="ts">
 import { BDict, decode } from '@/bencode';
-import DictView from '@/components/tree/DictView.vue';
+import DictEdit from '@/components/tree/DictEdit.vue';
 import { __ } from '@/i18n/gettext';
 import { format } from '@/util/format';
 import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus';
@@ -54,6 +53,7 @@ const view = async () => {
         const value = decode(new Uint8Array(buf!))
         if (value.Type() !== 'dict') throw new Error(__('not torrent file'))
         dict.value = value as BDict
+        fileName.value = fileList.value[0].name
         show.value = true
     } catch (e) {
         ElNotification.error({
@@ -64,6 +64,6 @@ const view = async () => {
     loading.value = false
 }
 const dict = ref<BDict>(new BDict({}))
-const debug = () => { console.log(dict.value) }
+const fileName = ref('')
 </script>
 

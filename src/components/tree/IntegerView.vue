@@ -1,18 +1,19 @@
 <script setup lang="ts">
+import { BInt } from '@/bencode';
 import { ref } from 'vue';
 const props = defineProps<{
-    data: number,
+    data: BInt,
     name: string
 }>()
 const emits = defineEmits<{
-    (event: 'update', value: number): void
+    (event: 'update', value: BInt): void
 }>()
 
-const value = ref(props.data)
+const num = ref(props.data.value)
 const canEdit = ref(false)
 const onClick = () => {
     if (canEdit.value) {
-        emits('update', value.value)
+        emits('update', new BInt(num.value))
     }
     canEdit.value = !canEdit.value
 }
@@ -28,7 +29,7 @@ const onClick = () => {
         </summary>
         <el-row>
             <el-col :span="20">
-                <el-input v-model="value" type="number" :disabled="!canEdit" />
+                <el-input v-model="num" type="number" :disabled="!canEdit" />
             </el-col>
             <el-col :span="4" class="flex justify-center">
                 <el-button @click="onClick">{{ canEdit ? __('OK') : __('Edit') }}</el-button>

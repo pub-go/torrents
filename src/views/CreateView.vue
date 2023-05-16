@@ -121,13 +121,13 @@
 
         <div class="flex justify-between">
           <el-button @click="active = STEP_SETTINGS; done = false">{{ __('Previous Step') }}</el-button>
-          <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
           <el-button :disabled="!done" type="info" :icon="showPreview ? ArrowUp : ArrowDown" @click="togglePreview">
             {{ __('Preview') }}
           </el-button>
+          <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
           <el-button :disabled="!done" type="primary" @click="download">{{ __('Download') }}</el-button>
         </div>
-        <DictView v-if="showPreview" :data="dict" name="torrent" />
+        <DictEdit v-if="showPreview" :data="dict" :name="`${torrent.info.name}.torrent`" />
       </el-tab-pane>
     </el-tabs>
   </el-container>
@@ -136,7 +136,7 @@
 
 <script setup lang="ts">
 import { BDict, toBValue } from '@/bencode';
-import DictView from '@/components/tree/DictView.vue';
+import DictEdit from '@/components/tree/DictEdit.vue';
 import { __, _x } from '@/i18n/gettext';
 import type { Torrent } from '@/model/torrent';
 import { duration, format, toFixed } from '@/util/format';

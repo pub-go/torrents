@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    DictEdit: typeof import('./src/components/tree/DictEdit.vue')['default']
     DictView: typeof import('./src/components/tree/DictView.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']

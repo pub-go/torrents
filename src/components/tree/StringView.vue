@@ -25,23 +25,24 @@
 
 <script setup lang="ts">
 
+import { BString } from '@/bencode';
 import { __ } from '@/i18n/gettext';
 import { fromHex, fromString, toHex, toString } from '@/util/uint8array';
 import { ElNotification } from 'element-plus';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{
-    data: Uint8Array,
+    data: BString,
     name: string
 }>()
 const emits = defineEmits<{
-    (event: 'update', value: Uint8Array): void
+    (event: 'update', value: BString): void
 }>()
 
 const hex = ref(false)
 const multiLine = ref(false)
 const canEdit = ref(false)
-const text = ref(toString(props.data))
+const text = ref(toString(props.data.value))
 
 watch(hex, (v, oldV) => {
     let a: Uint8Array
@@ -68,9 +69,9 @@ const onClick = () => {
                 })
                 return
             }
-            emits('update', arr)
+            emits('update', new BString(arr))
         } else {
-            emits('update', fromString(text.value))
+            emits('update', new BString(fromString(text.value)))
         }
     }
     canEdit.value = !canEdit.value
