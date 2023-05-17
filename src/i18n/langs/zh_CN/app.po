@@ -8,6 +8,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/views/AboutView.vue:13
+msgid "[Chinese] The BitTorrent Protocol Specification (BEP_0003)"
+msgstr "[中文] BitTorrent 协议规范（BEP_0003）"
+
+#: src/views/AboutView.vue:18
+msgid "[GitHub] Kimbatt/torrent-creator"
+msgstr "[GitHub] Kimbatt/torrent-creator"
+
+#: src/views/AboutView.vue:8
+msgid "[Officical] The BitTorrent Protocol Specification (BEP_0003)"
+msgstr "[官方] BitTorrent 协议规范（BEP_0003）"
+
 #: src/views/CreateView.vue:225
 msgid "{0} Files"
 msgstr "{0} 个文件"
@@ -102,7 +114,8 @@ msgstr "制作种子"
 msgid "Creation Date"
 msgstr "创建时间"
 
-#: src/components/tree/DictView.vue:6
+#: src/components/tree/DictView.vue:59 src/components/tree/DictView.vue:6
+#: src/components/tree/ListView.vue:99
 msgid "Dict"
 msgstr "字典"
 
@@ -110,7 +123,7 @@ msgstr "字典"
 msgid "done ({0})"
 msgstr "完成（{0}）"
 
-#: src/components/tree/DictEdit.vue:3 src/components/tree/DictEdit.vue:4
+#: src/components/tree/DictEdit.vue:4 src/components/tree/DictEdit.vue:5
 #: src/views/CreateView.vue:125 src/views/CreateView.vue:126
 #: src/views/CreateView.vue:127 src/views/CreateView.vue:128
 msgid "Download"
@@ -147,7 +160,7 @@ msgstr "文件夹名称不能为空。"
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:391
+#: src/views/CreateView.vue:390
 msgid "Generate torrent file success. ({0})"
 msgstr "生成种子文件成功。（{0}）"
 
@@ -160,7 +173,8 @@ msgstr "16进制"
 msgid "Home"
 msgstr "首页"
 
-#: src/components/tree/IntegerView.vue:27
+#: src/components/tree/DictView.vue:55 src/components/tree/IntegerView.vue:27
+#: src/components/tree/ListView.vue:95
 msgid "Integer"
 msgstr "整数"
 
@@ -180,7 +194,8 @@ msgstr "私有种子(PT)"
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
 
-#: src/components/tree/ListView.vue:29
+#: src/components/tree/DictView.vue:57 src/components/tree/ListView.vue:46
+#: src/components/tree/ListView.vue:97
 msgid "List"
 msgstr "列表"
 
@@ -225,6 +240,10 @@ msgstr "预览"
 msgid "Previous Step"
 msgstr "上一步"
 
+#: src/views/AboutView.vue:3
+msgid "Reference Links"
+msgstr "参考链接"
+
 #: src/views/EditView.vue:10 src/views/EditView.vue:11
 msgid "Reset"
 msgstr "重置"
@@ -241,11 +260,12 @@ msgstr "设置"
 msgid "Source"
 msgstr "来源"
 
+#: src/components/tree/DictView.vue:53 src/components/tree/ListView.vue:93
 #: src/components/tree/StringView.vue:6
 msgid "String"
 msgstr "字符串"
 
-#: src/views/CreateView.vue:384
+#: src/views/CreateView.vue:383
 msgid "task canceled."
 msgstr "任务已取消。"
 
@@ -273,6 +293,27 @@ msgid ""
 msgstr ""
 "您使用的浏览器不支持选择文件夹，请一个一个地选择文件。（所有文件应当在同一个"
 "文件夹中，暂不支持跨文件夹/子文件夹）"
+
+#: src/components/tree/DictView.vue:45
+msgctxt "add key to Dict"
+msgid "Key"
+msgstr "键名"
+
+#: src/components/tree/DictView.vue:30 src/components/tree/DictView.vue:34
+#: src/components/tree/ListView.vue:70 src/components/tree/ListView.vue:74
+msgctxt "add key to Dict/List"
+msgid "Add"
+msgstr "添加"
+
+#: src/components/tree/DictView.vue:51 src/components/tree/ListView.vue:91
+msgctxt "add key to Dict/List"
+msgid "Type"
+msgstr "类型"
+
+#: src/components/tree/ListView.vue:85
+msgctxt "add key to List"
+msgid "Index"
+msgstr "索引位置"
 
 #: src/views/CreateView.vue:15
 msgctxt "btn"
@@ -303,6 +344,36 @@ msgstr "{0} ({1})"
 msgctxt "page title"
 msgid "{0} :: {1}"
 msgstr "{0} :: {1}"
+
+#: src/views/AboutView.vue:44
+msgctxt "reference link"
+msgid "[Atomic CSS Engine] {0}"
+msgstr "[原子 CSS 引擎] {0}"
+
+#: src/views/AboutView.vue:29
+msgctxt "reference link"
+msgid "[Framework] {0}"
+msgstr "[框架] {0}"
+
+#: src/views/AboutView.vue:49
+msgctxt "reference link"
+msgid "[I18n] {0}"
+msgstr "[国际化] {0}"
+
+#: src/views/AboutView.vue:34
+msgctxt "reference link"
+msgid "[Router] {0}"
+msgstr "[路由] {0}"
+
+#: src/views/AboutView.vue:24
+msgctxt "reference link"
+msgid "[Tooling] {0}"
+msgstr "[工具链] {0}"
+
+#: src/views/AboutView.vue:39
+msgctxt "reference link"
+msgid "[UI] {0}"
+msgstr "[组件库] {0}"
 
 #: src/views/CreateView.vue:255
 msgctxt "settings desc"

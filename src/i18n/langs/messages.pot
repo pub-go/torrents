@@ -2,6 +2,18 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: src/views/AboutView.vue:13
+msgid "[Chinese] The BitTorrent Protocol Specification (BEP_0003)"
+msgstr ""
+
+#: src/views/AboutView.vue:18
+msgid "[GitHub] Kimbatt/torrent-creator"
+msgstr ""
+
+#: src/views/AboutView.vue:8
+msgid "[Officical] The BitTorrent Protocol Specification (BEP_0003)"
+msgstr ""
+
 #: src/views/CreateView.vue:225
 msgid "{0} Files"
 msgstr ""
@@ -100,7 +112,9 @@ msgstr ""
 msgid "Creation Date"
 msgstr ""
 
+#: src/components/tree/DictView.vue:59
 #: src/components/tree/DictView.vue:6
+#: src/components/tree/ListView.vue:99
 msgid "Dict"
 msgstr ""
 
@@ -108,8 +122,8 @@ msgstr ""
 msgid "done ({0})"
 msgstr ""
 
-#: src/components/tree/DictEdit.vue:3
 #: src/components/tree/DictEdit.vue:4
+#: src/components/tree/DictEdit.vue:5
 #: src/views/CreateView.vue:125
 #: src/views/CreateView.vue:126
 #: src/views/CreateView.vue:127
@@ -154,7 +168,7 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: src/views/CreateView.vue:391
+#: src/views/CreateView.vue:390
 msgid "Generate torrent file success. ({0})"
 msgstr ""
 
@@ -168,7 +182,9 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
+#: src/components/tree/DictView.vue:55
 #: src/components/tree/IntegerView.vue:27
+#: src/components/tree/ListView.vue:95
 msgid "Integer"
 msgstr ""
 
@@ -188,7 +204,9 @@ msgstr ""
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr ""
 
-#: src/components/tree/ListView.vue:29
+#: src/components/tree/DictView.vue:57
+#: src/components/tree/ListView.vue:46
+#: src/components/tree/ListView.vue:97
 msgid "List"
 msgstr ""
 
@@ -241,6 +259,10 @@ msgstr ""
 msgid "Previous Step"
 msgstr ""
 
+#: src/views/AboutView.vue:3
+msgid "Reference Links"
+msgstr ""
+
 #: src/views/EditView.vue:10
 #: src/views/EditView.vue:11
 msgid "Reset"
@@ -260,11 +282,13 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+#: src/components/tree/DictView.vue:53
+#: src/components/tree/ListView.vue:93
 #: src/components/tree/StringView.vue:6
 msgid "String"
 msgstr ""
 
-#: src/views/CreateView.vue:384
+#: src/views/CreateView.vue:383
 msgid "task canceled."
 msgstr ""
 
@@ -289,6 +313,30 @@ msgstr ""
 
 #: src/views/CreateView.vue:177
 msgid "Your broswer does not support select folder, please select files one by one. (All files should be on the same folder.)"
+msgstr ""
+
+#: src/components/tree/DictView.vue:45
+msgctxt "add key to Dict"
+msgid "Key"
+msgstr ""
+
+#: src/components/tree/DictView.vue:30
+#: src/components/tree/DictView.vue:34
+#: src/components/tree/ListView.vue:70
+#: src/components/tree/ListView.vue:74
+msgctxt "add key to Dict/List"
+msgid "Add"
+msgstr ""
+
+#: src/components/tree/DictView.vue:51
+#: src/components/tree/ListView.vue:91
+msgctxt "add key to Dict/List"
+msgid "Type"
+msgstr ""
+
+#: src/components/tree/ListView.vue:85
+msgctxt "add key to List"
+msgid "Index"
 msgstr ""
 
 #: src/views/CreateView.vue:15
@@ -320,6 +368,36 @@ msgstr ""
 #: src/router/index.ts:54
 msgctxt "page title"
 msgid "{0} :: {1}"
+msgstr ""
+
+#: src/views/AboutView.vue:44
+msgctxt "reference link"
+msgid "[Atomic CSS Engine] {0}"
+msgstr ""
+
+#: src/views/AboutView.vue:29
+msgctxt "reference link"
+msgid "[Framework] {0}"
+msgstr ""
+
+#: src/views/AboutView.vue:49
+msgctxt "reference link"
+msgid "[I18n] {0}"
+msgstr ""
+
+#: src/views/AboutView.vue:34
+msgctxt "reference link"
+msgid "[Router] {0}"
+msgstr ""
+
+#: src/views/AboutView.vue:24
+msgctxt "reference link"
+msgid "[Tooling] {0}"
+msgstr ""
+
+#: src/views/AboutView.vue:39
+msgctxt "reference link"
+msgid "[UI] {0}"
 msgstr ""
 
 #: src/views/CreateView.vue:255
