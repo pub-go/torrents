@@ -294,8 +294,7 @@ const progressOps = reactive({
 const costMs = ref(0)
 const descGenerate = computed(() => {
   if (done.value) {
-    const d = duration(costMs.value)
-    return format(__('done ({0})'), format(__(d.template), d.args))
+    return format(__('done ({0})'), duration(costMs.value))
   }
   return ''
 })
@@ -385,9 +384,8 @@ const generate = async () => {
   }
 
   costMs.value = new Date().getTime() - start
-  const d = duration(costMs.value)
   ElMessage.success({
-    message: format(__('Generate torrent file success. ({0})'), format(__(d.template), d.args)),
+    message: format(__('Generate torrent file success. ({0})'), duration(costMs.value)),
   })
   done.value = true
   URL.revokeObjectURL(downloadURL.value)

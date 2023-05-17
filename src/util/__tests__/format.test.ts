@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { duration, format, toFixed } from '../format';
 
-
 describe('format', () => {
     it('format {0} ok', () => {
         expect(format('Hello, {0}', 'World')).toBe('Hello, World')
@@ -24,12 +23,12 @@ describe('format', () => {
 })
 
 describe('duration', () => {
-    it('format ms', () => {
-        expect(duration(999)).deep.eq({ template: '{0} ms', args: 999 })
-        expect(duration(1000)).deep.eq({ template: '{0} seconds', args: 1 })
-        expect(duration(1010)).deep.eq({ template: '{0} seconds', args: 1.01 })
-        expect(duration(6000)).deep.eq({ template: '{0} seconds', args: 6 })
-        expect(duration(60000)).deep.eq({ template: '{0} minutes', args: 1 })
+    it('format duration', () => {
+        expect(duration(999)).eq('999 ms')
+        expect(duration(1000)).eq('1 seconds')
+        expect(duration(1010)).eq('1.01 seconds')
+        expect(duration(6000)).eq('6 seconds')
+        expect(duration(60000)).eq('1 minutes')
     })
 })
 

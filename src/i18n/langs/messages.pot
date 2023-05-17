@@ -118,7 +118,7 @@ msgstr ""
 msgid "Dict"
 msgstr ""
 
-#: src/views/CreateView.vue:298
+#: src/views/CreateView.vue:297
 msgid "done ({0})"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: src/views/CreateView.vue:390
+#: src/views/CreateView.vue:388
 msgid "Generate torrent file success. ({0})"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "String"
 msgstr ""
 
-#: src/views/CreateView.vue:383
+#: src/views/CreateView.vue:382
 msgid "task canceled."
 msgstr ""
 

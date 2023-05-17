@@ -1,3 +1,5 @@
+import { __ } from '@/i18n/gettext'
+
 function format(template: string, ...args: any) {
     return template.replace(/{(\d+)}/g, (match, number) => {
         return typeof args[number] != 'undefined' // 注意有引号
@@ -6,16 +8,14 @@ function format(template: string, ...args: any) {
     })
 }
 
-const __ = (mark: string) => mark;
-
 function duration(ms: number) {
     if (ms < 1000) {        // 999 ms, 1 seconds
-        return { template: __('{0} ms'), args: ms }
+        return format(__('{0} ms'), ms)
     }
     if (ms < 1000 * 60) {   // 59 seconds, 60 seconds=1 minutes
-        return { template: __('{0} seconds'), args: toFixed(ms / 1000, 2) }
+        return format(__('{0} seconds'), toFixed(ms / 1000, 2))
     }
-    return { template: __('{0} minutes'), args: toFixed(ms / 1000 / 60, 2) }
+    return format(__('{0} minutes'), toFixed(ms / 1000 / 60, 2))
 }
 
 function toFixed(f: number, n: number) {
@@ -23,4 +23,5 @@ function toFixed(f: number, n: number) {
     return Math.round(r * f) / r
 }
 
-export { format, duration, toFixed };
+export { format, duration, toFixed }
+

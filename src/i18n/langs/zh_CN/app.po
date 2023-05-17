@@ -119,7 +119,7 @@ msgstr "创建时间"
 msgid "Dict"
 msgstr "字典"
 
-#: src/views/CreateView.vue:298
+#: src/views/CreateView.vue:297
 msgid "done ({0})"
 msgstr "完成（{0}）"
 
@@ -160,7 +160,7 @@ msgstr "文件夹名称不能为空。"
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:390
+#: src/views/CreateView.vue:388
 msgid "Generate torrent file success. ({0})"
 msgstr "生成种子文件成功。（{0}）"
 
@@ -265,7 +265,7 @@ msgstr "来源"
 msgid "String"
 msgstr "字符串"
 
-#: src/views/CreateView.vue:383
+#: src/views/CreateView.vue:382
 msgid "task canceled."
 msgstr "任务已取消。"
 

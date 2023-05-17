@@ -136,8 +136,9 @@ function toBValue(v: any): BValue {
 
         case 'map':
             const map: Record<string, BValue> = {}
-            for (const key of v.keys().sort()) {
-                const value = v[key]
+            for (const key of [...v.keys()].sort()) {
+                const value = v.get(key)
+                console.log(key, value)
                 map[key] = toBValue(value)
             }
             return new BDict(map)
@@ -153,7 +154,7 @@ function toBValue(v: any): BValue {
             }
             return new BDict(dict)
     }
-    throw new Error('unsupported input')
+    throw new Error('unsupported input: ' + v)
 }
 
 export type { BType, BValue };
