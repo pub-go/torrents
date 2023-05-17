@@ -1,11 +1,6 @@
 import type { UploadRawFile } from "element-plus"
+import { sha1 } from './wasm'
 import type { Req, Resp } from "./worker"
-
-async function sha1(data: BufferSource): Promise<Uint8Array> {
-    // https://developer.mozilla.org/zh-CN/docs/Web/API/SubtleCrypto/digest
-    const buf = await crypto.subtle.digest('SHA-1', data)
-    return new Uint8Array(buf)
-}
 
 function readFiles(files: UploadRawFile[], totalSize: number, pieceSize: number) {
     const fileCount = files.length
