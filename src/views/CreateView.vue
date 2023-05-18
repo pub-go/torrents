@@ -140,7 +140,7 @@ import DictEdit from '@/components/tree/DictEdit.vue';
 import { __, _x } from '@/i18n/gettext';
 import type { Torrent } from '@/model/torrent';
 import { duration, format, toFixed } from '@/util/format';
-import { genFilesSha1 } from '@/util/hash';
+import { genFilesSha1 } from '@/util/file';
 import { sizeString } from '@/util/size';
 import { ArrowDown, ArrowUp, Delete } from '@element-plus/icons-vue';
 import { ElMessage, ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';

@@ -1,7 +1,7 @@
 interface Req {
     workerIndex: number
     pieceIndex: number
-    pieceData: Uint8Array
+    pieceData: ArrayBuffer
 }
 
 interface Resp {

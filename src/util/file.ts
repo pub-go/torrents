@@ -1,5 +1,4 @@
 import type { UploadRawFile } from "element-plus"
-import { duration } from "./format"
 import { sha1 } from './sha1'
 import type { Req, Resp } from "./worker"
 // 进度回调。如果返回 false 则终止计算
@@ -90,7 +89,7 @@ function readFiles(files: UploadRawFile[], totalSize: number, pieceSize: number)
                         sum.set(new Uint8Array(part2), part.byteLength)
                         part = sum
                     }
-                    return { done: false, value: new Uint8Array(part) }
+                    return { done: false, value: part }
                 }
             }
         }
@@ -102,7 +101,7 @@ const workers = initWorkers()
 
 // 计算 sha1 值。返回一个 Promise<void> 当其完成后才能继续读取下一分片。
 // 当有多个 worker 时, 任务提交给可用的 worker 后即可继续读取下一分片。
-async function hash(pieceIndex: number, pieceData: Uint8Array, callback: HashCallback) {
+async function hash(pieceIndex: number, pieceData: ArrayBuffer, callback: HashCallback) {
     return new Promise<void>((resolve) => {
         if (location.search.includes('sha1=fake')) {
             callback(pieceIndex, pieceData.byteLength, new Uint8Array(20))
@@ -141,8 +140,8 @@ function initWorkers() {
 const workingIndex = new Set<number>()
 // 等待队列
 const waitingTask: { req: Req, callback: HashCallback }[] = []
-
-function doHashWithWorker(pieceIndex: number, pieceData: Uint8Array, callback: HashCallback) {
+let maxWorkerIndex = 0
+function doHashWithWorker(pieceIndex: number, pieceData: ArrayBuffer, callback: HashCallback) {
     let selectedWorker: Worker | null = null
     let selectIndex: number = -1
     for (let i = 0; i < workers.length; i++) {
@@ -153,20 +152,23 @@ function doHashWithWorker(pieceIndex: number, pieceData: Uint8Array, callback: H
             break
         }
     }
-
+    if (selectIndex > maxWorkerIndex) {
+        maxWorkerIndex = selectIndex
+        console.log('maxWorkerIndex=', maxWorkerIndex)
+    }
     const req: Req = {
         workerIndex: selectIndex,
         pieceIndex: pieceIndex,
         pieceData: pieceData,
     }
-    console.log('req=', req.workerIndex, req.pieceIndex)
+    // console.log('req=', req.workerIndex, req.pieceIndex)
     const start = new Date().getTime()
     if (selectedWorker != null) { // 发送消息给 worker 处理
         selectedWorker.postMessage(req)
         selectedWorker.onmessage = (e) => {
             const resp = e.data as Resp // 收到结果
             const cost = new Date().getTime() - start
-            console.log('cost', duration(cost), 'resp=', resp)
+            // console.log('cost', duration(cost), 'resp=', resp)
             callback(resp.pieceIndex, resp.pieceLengh, resp.pieceHash)
             workingIndex.delete(resp.workerIndex)// 将该 worker 置为空闲
             // 如果有等待的任务就拿出来执行

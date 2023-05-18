@@ -1,4 +1,4 @@
-let sha1 = async function (data: Uint8Array): Promise<Uint8Array> {
+let sha1 = async function (data: ArrayBuffer): Promise<Uint8Array> {
     // https://developer.mozilla.org/zh-CN/docs/Web/API/SubtleCrypto/digest
     const buf = await crypto.subtle.digest('SHA-1', data)
     return new Uint8Array(buf)
@@ -12,7 +12,7 @@ if (typeof WebAssembly !== "undefined") {
     const wasmResult = await WebAssembly.instantiateStreaming(fetch(wasmURL), go.importObject);
     console.log(wasmResult)
     go.run(wasmResult.instance);
-    sha1 = async (data: Uint8Array) => {
+    sha1 = async (data: ArrayBuffer) => {
         const result = new Uint8Array(20)
         return go_sha1(data, result)
     }
