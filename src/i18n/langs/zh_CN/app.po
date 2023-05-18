@@ -20,7 +20,7 @@ msgstr "[GitHub] Kimbatt/torrent-creator"
 msgid "[Officical] The BitTorrent Protocol Specification (BEP_0003)"
 msgstr "[官方] BitTorrent 协议规范（BEP_0003）"
 
-#: src/views/CreateView.vue:225
+#: src/views/CreateView.vue:258
 msgid "{0} Files"
 msgstr "{0} 个文件"
 
@@ -36,47 +36,47 @@ msgstr "{0} 毫秒"
 msgid "{0} seconds"
 msgstr "{0} 秒"
 
-#: src/views/CreateView.vue:82
+#: src/views/CreateView.vue:100 src/views/CreateView.vue:82
 msgid "1 MB"
 msgstr "1 MB"
 
-#: src/views/CreateView.vue:79
+#: src/views/CreateView.vue:79 src/views/CreateView.vue:97
 msgid "128 KB"
 msgstr "128 KB"
 
-#: src/views/CreateView.vue:76
+#: src/views/CreateView.vue:76 src/views/CreateView.vue:94
 msgid "16 KB"
 msgstr "16 KB"
 
-#: src/views/CreateView.vue:86
+#: src/views/CreateView.vue:104 src/views/CreateView.vue:86
 msgid "16 MB"
 msgstr "16 MB"
 
-#: src/views/CreateView.vue:83
+#: src/views/CreateView.vue:101 src/views/CreateView.vue:83
 msgid "2 MB"
 msgstr "2 MB"
 
-#: src/views/CreateView.vue:80
+#: src/views/CreateView.vue:80 src/views/CreateView.vue:98
 msgid "256 KB"
 msgstr "256 KB"
 
-#: src/views/CreateView.vue:77
+#: src/views/CreateView.vue:77 src/views/CreateView.vue:95
 msgid "32 KB"
 msgstr "32 KB"
 
-#: src/views/CreateView.vue:84
+#: src/views/CreateView.vue:102 src/views/CreateView.vue:84
 msgid "4 MB"
 msgstr "4 MB"
 
-#: src/views/CreateView.vue:81
+#: src/views/CreateView.vue:81 src/views/CreateView.vue:99
 msgid "512 KB"
 msgstr "512 KB"
 
-#: src/views/CreateView.vue:78
+#: src/views/CreateView.vue:78 src/views/CreateView.vue:96
 msgid "64 KB"
 msgstr "64 KB"
 
-#: src/views/CreateView.vue:85
+#: src/views/CreateView.vue:103 src/views/CreateView.vue:85
 msgid "8 MB"
 msgstr "8 MB"
 
@@ -90,8 +90,12 @@ msgid "Add File"
 msgstr "添加文件"
 
 #: src/views/CreateView.vue:75
-msgid "Auto"
-msgstr "自动"
+msgid "Auto ({0})"
+msgstr "自动（{0}）"
+
+#: src/views/CreateView.vue:109 src/views/CreateView.vue:110
+msgid "Bytes / {0}"
+msgstr "字节 / {0}"
 
 #: src/views/EditView.vue:61
 msgid "Can not view this file: {0}"
@@ -101,7 +105,7 @@ msgstr "无法查看该文件: {0}"
 msgid "Clear Files"
 msgstr "清除文件"
 
-#: src/views/CreateView.vue:101
+#: src/views/CreateView.vue:134
 msgid "Comment"
 msgstr "注释"
 
@@ -110,7 +114,7 @@ msgstr "注释"
 msgid "Create"
 msgstr "制作种子"
 
-#: src/views/CreateView.vue:92
+#: src/views/CreateView.vue:125
 msgid "Creation Date"
 msgstr "创建时间"
 
@@ -119,13 +123,13 @@ msgstr "创建时间"
 msgid "Dict"
 msgstr "字典"
 
-#: src/views/CreateView.vue:297
+#: src/views/CreateView.vue:331
 msgid "done ({0})"
 msgstr "完成（{0}）"
 
 #: src/components/tree/DictEdit.vue:4 src/components/tree/DictEdit.vue:5
-#: src/views/CreateView.vue:125 src/views/CreateView.vue:126
-#: src/views/CreateView.vue:127 src/views/CreateView.vue:128
+#: src/views/CreateView.vue:158 src/views/CreateView.vue:159
+#: src/views/CreateView.vue:160 src/views/CreateView.vue:161
 msgid "Download"
 msgstr "下载"
 
@@ -139,7 +143,7 @@ msgstr "拖放文件至此，或点击此处选择文件"
 msgid "Edit"
 msgstr "编辑"
 
-#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:283
+#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:317
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr "错误"
@@ -152,15 +156,15 @@ msgstr "文件列表"
 msgid "Folder Name"
 msgstr "文件夹名称"
 
-#: src/views/CreateView.vue:264
+#: src/views/CreateView.vue:298
 msgid "Folder name can not be empty."
 msgstr "文件夹名称不能为空。"
 
-#: src/views/CreateView.vue:233 src/views/CreateView.vue:8
+#: src/views/CreateView.vue:299 src/views/CreateView.vue:8
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:388
+#: src/views/CreateView.vue:423
 msgid "Generate torrent file success. ({0})"
 msgstr "生成种子文件成功。（{0}）"
 
@@ -182,11 +186,11 @@ msgstr "整数"
 msgid "Invalid hex string"
 msgstr "非法的十六进制"
 
-#: src/views/CreateView.vue:273
+#: src/views/CreateView.vue:307
 msgid "invalid tracker URL: {0}"
 msgstr "无法识别的 tracker URL: {0}"
 
-#: src/views/CreateView.vue:89
+#: src/views/CreateView.vue:122
 msgid "Is Private"
 msgstr "私有种子(PT)"
 
@@ -203,7 +207,7 @@ msgstr "列表"
 msgid "Multi Line"
 msgstr "多行"
 
-#: src/views/CreateView.vue:110 src/views/CreateView.vue:111
+#: src/views/CreateView.vue:143 src/views/CreateView.vue:144
 #: src/views/CreateView.vue:46 src/views/CreateView.vue:47
 msgid "Next Step"
 msgstr "下一步"
@@ -228,17 +232,27 @@ msgstr "分片大小"
 msgid "Plsease select a folder."
 msgstr "请选择一个文件夹"
 
-#: src/views/CreateView.vue:123 src/views/CreateView.vue:124
-#: src/views/CreateView.vue:125
+#: src/views/CreateView.vue:156 src/views/CreateView.vue:157
+#: src/views/CreateView.vue:158
 msgid "Preview"
 msgstr "预览"
 
-#: src/views/CreateView.vue:108 src/views/CreateView.vue:109
-#: src/views/CreateView.vue:121 src/views/CreateView.vue:122
-#: src/views/CreateView.vue:123 src/views/CreateView.vue:43
+#: src/views/CreateView.vue:141 src/views/CreateView.vue:142
+#: src/views/CreateView.vue:154 src/views/CreateView.vue:155
+#: src/views/CreateView.vue:156 src/views/CreateView.vue:43
 #: src/views/CreateView.vue:44
 msgid "Previous Step"
 msgstr "上一步"
+
+#: src/views/CreateView.vue:90
+msgid "Read Block Size"
+msgstr "读文件块"
+
+#: src/views/CreateView.vue:115 src/views/CreateView.vue:116
+msgid ""
+"read file by block: set block size larger to make reading faster (and cost "
+"more memory)."
+msgstr "分块读文件：设置更大的块大小能读取得更快（同时也会更耗内存）。"
 
 #: src/views/AboutView.vue:3
 msgid "Reference Links"
@@ -256,7 +270,7 @@ msgstr "选择类型"
 msgid "Settings"
 msgstr "设置"
 
-#: src/views/CreateView.vue:104
+#: src/views/CreateView.vue:137
 msgid "Source"
 msgstr "来源"
 
@@ -265,11 +279,11 @@ msgstr "来源"
 msgid "String"
 msgstr "字符串"
 
-#: src/views/CreateView.vue:382
+#: src/views/CreateView.vue:417
 msgid "task canceled."
 msgstr "任务已取消。"
 
-#: src/views/CreateView.vue:95
+#: src/views/CreateView.vue:128
 msgid "Trackers"
 msgstr "追踪器(Trackers)"
 
@@ -282,11 +296,11 @@ msgstr "查看"
 msgid "View/Edit"
 msgstr "查看/编辑"
 
-#: src/views/CreateView.vue:98
+#: src/views/CreateView.vue:131
 msgid "Web Seeds"
 msgstr "下载直链"
 
-#: src/views/CreateView.vue:177
+#: src/views/CreateView.vue:210
 msgid ""
 "Your broswer does not support select folder, please select files one by one. "
 "(All files should be on the same folder.)"
@@ -325,12 +339,12 @@ msgctxt "btn"
 msgid "Single File"
 msgstr "单文件"
 
-#: src/views/CreateView.vue:181
+#: src/views/CreateView.vue:214
 msgctxt "desc"
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/views/CreateView.vue:181
+#: src/views/CreateView.vue:214
 msgctxt "desc"
 msgid "Single File"
 msgstr "单文件"
@@ -375,12 +389,15 @@ msgctxt "reference link"
 msgid "[UI] {0}"
 msgstr "[组件库] {0}"
 
-#: src/views/CreateView.vue:255
+#: src/views/CreateView.vue:289
 msgctxt "settings desc"
 msgid "BT ({0})"
 msgstr "BT ({0})"
 
-#: src/views/CreateView.vue:253
+#: src/views/CreateView.vue:287
 msgctxt "settings desc"
 msgid "PT ({0})"
 msgstr "PT ({0})"
+
+#~ msgid "Auto"
+#~ msgstr "自动"

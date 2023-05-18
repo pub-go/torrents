@@ -6,7 +6,7 @@ type onProgress = (current: number, total: number, version: string) => boolean
 // 算完后点击上一步再点击下一步 如果文件和分片大小没变 就复用 sha1 结果
 const cache = new Map<string, Uint8Array>()
 
-async function genFilesSha1(files: UploadRawFile[], pieceSize: number, version: string, onProgress: onProgress) {
+async function genFilesSha1(files: UploadRawFile[], readBlockSize: number, pieceSize: number, version: string, onProgress: onProgress) {
     const totalSize = files.reduce((sum, f) => sum + f.size, 0)
 
     // cache first
@@ -18,7 +18,7 @@ async function genFilesSha1(files: UploadRawFile[], pieceSize: number, version: 
     }
 
     // 对每个分片计算 sha1 值
-    const hashArray: Uint8Array[] = await genPiecesSha1(files, pieceSize, totalSize, version, onProgress)
+    const hashArray: Uint8Array[] = await genPiecesSha1(files, readBlockSize, pieceSize, totalSize, version, onProgress)
 
     // 结果组合 将分片结果连起来返回
     const len = hashArray.reduce((sum, i) => sum + i.byteLength, 0)
@@ -34,13 +34,13 @@ async function genFilesSha1(files: UploadRawFile[], pieceSize: number, version: 
     return result
 }
 
-async function genPiecesSha1(files: UploadRawFile[], pieceSize: number, totalSize: number, version: string, onProgress: onProgress) {
+async function genPiecesSha1(files: UploadRawFile[], readBlockSize: number, pieceSize: number, totalSize: number, version: string, onProgress: onProgress) {
     const hashArray: Uint8Array[] = []
     let index = 0// 分片位置
     let readBytes = 0// 已读取字节数 用于更新进度
     let doneBytes = 0
     await new Promise<void>(async (resolve) => {
-        for await (let piece of readFiles(files, totalSize, pieceSize)) {
+        for await (let piece of readBlock(files, totalSize, readBlockSize, pieceSize)) {
             if (piece) {
                 readBytes += piece.byteLength
                 if (!onProgress(readBytes, totalSize, version)) {
@@ -57,39 +57,76 @@ async function genPiecesSha1(files: UploadRawFile[], pieceSize: number, totalSiz
     return hashArray
 }
 
-function readFiles(files: UploadRawFile[], totalSize: number, pieceSize: number) {
+function readBlock(files: UploadRawFile[], totalSize: number, readBlockSize: number, pieceSize: number) {
+    if (readBlockSize < pieceSize) {
+        readBlockSize = pieceSize
+    }
+
     const fileCount = files.length
-    let fileIndex = 0
-    let readBytes = 0
-    let start = 0
+    let fileIndex = 0 // 要读取的文件
+    let start = 0     // 下次读取的位置
+
+    const read = async () => {
+        let block = await files[fileIndex].slice(start, start + readBlockSize).arrayBuffer()// 读取当前文件
+        let len = block.byteLength  // 读出的大小
+        start += len                // 下次读取的位置
+
+        while (len < readBlockSize && fileIndex + 1 < fileCount) {   // 还没读够一个 block
+            fileIndex++ // 读下一个文件
+            start = 0   // 下一个文件从头开始
+            if (fileIndex >= fileCount) { break } // 没有下一个文件了
+            const left = readBlockSize - len      // 还需要读取的长度
+            const part2 = await files[fileIndex].slice(start, start + left).arrayBuffer()
+            const part2Len = part2.byteLength     // 读出来的大小
+            len += part2Len        // 更新总大小
+            start += part2Len      // 更新下次读取位置
+
+            // 更新结果
+            const sum = new Uint8Array(len)
+            sum.set(new Uint8Array(block))
+            sum.set(new Uint8Array(part2), block.byteLength)
+            block = sum
+        }
+        return block
+    }
+
+    let buffer: ArrayBuffer | null = null // 读缓存
+    let bufferIndex = 0;    //
+    let outSize = 0;        // 已经返回的字节数
     return {
         [Symbol.asyncIterator]() {
             return {
                 async next() {
-                    if (readBytes == totalSize) { return { done: true } }// 全部读完了
+                    if (outSize == totalSize) { return { done: true } }// 全部读完了
 
-                    let part = await files[fileIndex].slice(start, start + pieceSize).arrayBuffer()// 读取当前文件
-                    let len = part.byteLength   // 读出的大小
-                    start += len                // 下次读取的位置
-                    readBytes += len            // 已经读取的长度
-                    while (len < pieceSize) {   // 还没读够一个分片
-                        fileIndex++ // 读下一个文件
-                        if (fileIndex >= fileCount) { break }// 没有下一个文件了
-                        start = 0   // 下一个文件从头开始
-                        const left = pieceSize - len    // 还需要读取的长度
-                        const part2 = await files[fileIndex].slice(start, start + left).arrayBuffer()
-                        const part2Len = part2.byteLength   // 读出来的大小
-                        len += part2Len                 // 更新总大小
-                        start += part2Len               // 更新下次读取位置
-                        readBytes += part2Len           // 更新读取总大小
-
-                        // 更新结果
-                        const sum = new Uint8Array(len)
-                        sum.set(new Uint8Array(part))
-                        sum.set(new Uint8Array(part2), part.byteLength)
-                        part = sum
+                    if (buffer == null) {
+                        buffer = await read() // init 读取第一个 block
                     }
-                    return { done: false, value: part }
+
+                    const piece = buffer.slice(bufferIndex, bufferIndex + pieceSize)// 从 buffer 中读
+                    let pieceLen = piece.byteLength // 读出的长度
+                    bufferIndex += pieceLen         // 更新下次读取位置
+                    outSize += pieceLen             // 已经读取长度
+                    if (pieceLen == pieceSize) { // buffer 中能完整地读出一个分片
+                        return { done: false, value: piece }
+                    }
+
+                    if (buffer.byteLength < readBlockSize) { // 这个 buffer 已经是最后一部分
+                        return { done: false, value: piece }
+                    }
+
+                    // buffer 不够 再读一个 buffer 出来
+                    buffer = await read()
+                    bufferIndex = 0
+                    const left = pieceSize - pieceLen
+                    const part2 = buffer.slice(bufferIndex, bufferIndex + left)
+                    const part2Len = part2.byteLength
+                    bufferIndex += part2Len
+                    outSize += part2Len
+                    const sum = new Uint8Array(pieceLen + part2Len)
+                    sum.set(new Uint8Array(piece))
+                    sum.set(new Uint8Array(part2), pieceLen)
+                    return { done: false, value: sum }
                 }
             }
         }

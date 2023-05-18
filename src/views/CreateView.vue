@@ -72,7 +72,7 @@
 
             <el-form-item :label="__('Piece Size')">
               <el-select v-model="form.pieceSize" class="w100%">
-                <el-option :label="__('Auto')" :value="0" />
+                <el-option :label="format(__('Auto ({0})'), sizeString(genPieceSize(totalSize)))" :value="0" />
                 <el-option :label="__('16 KB')" :value="16384" />
                 <el-option :label="__('32 KB')" :value="32768" />
                 <el-option :label="__('64 KB')" :value="65536" />
@@ -86,6 +86,39 @@
                 <el-option :label="__('16 MB')" :value="16777216" />
               </el-select>
             </el-form-item>
+
+            <el-form-item :label="__('Read Block Size')">
+              <el-row class="w100%">
+                <el-col :xs="24" :sm="12" :md="4">
+                  <el-select v-model="form.readBlockSize" class="w100%">
+                    <el-option :label="__('16 KB')" :value="16384" />
+                    <el-option :label="__('32 KB')" :value="32768" />
+                    <el-option :label="__('64 KB')" :value="65536" />
+                    <el-option :label="__('128 KB')" :value="131072" />
+                    <el-option :label="__('256 KB')" :value="262144" />
+                    <el-option :label="__('512 KB')" :value="524288" />
+                    <el-option :label="__('1 MB')" :value="1048576" />
+                    <el-option :label="__('2 MB')" :value="2097152" />
+                    <el-option :label="__('4 MB')" :value="4194304" />
+                    <el-option :label="__('8 MB')" :value="8388608" />
+                    <el-option :label="__('16 MB')" :value="16777216" />
+                  </el-select>
+                </el-col>
+                <el-col :xs="24" :sm="12" :md="8" :lg="6">
+                  <el-input v-model="form.readBlockSize" type="number">
+                    <template #append>
+                      {{ format(__('Bytes / {0}'), sizeString(form.readBlockSize)) }}
+                    </template>
+                  </el-input>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="24" :lg="14">
+                  <el-text> {{
+                    __('read file by block: set block size larger to make reading faster (and cost more memory).')
+                  }}</el-text>
+                </el-col>
+              </el-row>
+            </el-form-item>
+
             <el-form-item :label="__('Is Private')">
               <el-switch v-model="form.isPrivate" />
             </el-form-item>
@@ -139,8 +172,8 @@ import { BDict, toBValue } from '@/bencode';
 import DictEdit from '@/components/tree/DictEdit.vue';
 import { __, _x } from '@/i18n/gettext';
 import type { Torrent } from '@/model/torrent';
-import { duration, format, toFixed } from '@/util/format';
 import { genFilesSha1 } from '@/util/file';
+import { duration, format, toFixed } from '@/util/format';
 import { sizeString } from '@/util/size';
 import { ArrowDown, ArrowUp, Delete } from '@element-plus/icons-vue';
 import { ElMessage, ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';
@@ -231,6 +264,7 @@ const descFile = computed(() => {// // step 2 desc
 const form = reactive({
   folderName: '',
   pieceSize: 0,
+  readBlockSize: 16777216,// 16 MB
   isPrivate: false,
   setCreation: true,
   trackers: '',
@@ -317,6 +351,7 @@ const downloadLink = ref<HTMLAnchorElement>()
 const downloadURL = ref('')
 
 const genVersion = ref('')
+const totalSize = computed(() => fileList.value.reduce((sum, i) => sum + i.size!, 0))
 const generate = async () => {
   done.value = false
   showPreview.value = false
@@ -352,8 +387,7 @@ const generate = async () => {
   if (form.pieceSize) {
     torrent.value.info['piece length'] = form.pieceSize
   } else {
-    const totalSize = fileList.value.reduce((sum, i) => sum + i.size!, 0)
-    torrent.value.info['piece length'] = genPieceSize(totalSize)
+    torrent.value.info['piece length'] = genPieceSize(totalSize.value)
   }
 
   if (isSingle.value) {
@@ -368,6 +402,7 @@ const generate = async () => {
   try {
     torrent.value.info.pieces = await genFilesSha1(
       fileList.value.map(f => f.raw!),
+      form.readBlockSize,
       torrent.value.info['piece length'],
       genVersion.value,
       (read: number, total: number, version: string) => {
