@@ -1,6 +1,5 @@
 <template>
   <el-container class="is-vertical">
-
     <el-steps class="w100%" :active="active" finish-status="success">
       <el-step :title="__('Select Type')" :description="descType" />
       <el-step :title="__('Add File')" :description="descFile" />
@@ -151,6 +150,17 @@
 
         <el-progress :percentage="progressOps.pct" :status="progressOps.status" :text-inside="true" :stroke-width="26"
           class="mb-4" :striped="progressOps.pct < 100" :striped-flow="progressOps.pct < 100" />
+        <div class="flex gap-4">
+          <el-text>{{ format(__('Total Size: {0} Bytes / {1}'), totalSize, sizeString(totalSize)) }}</el-text>
+          <el-text>{{ format(__('Piece Size: {0} Bytes / {1}'), pieceSize, sizeString(pieceSize)) }}</el-text>
+          <el-text>{{ format(__('Block Size: {0} Bytes / {1}'), form.readBlockSize,
+            sizeString(form.readBlockSize)) }}
+          </el-text>
+          <el-text>{{ format(__('Spend: {0}'), duration(spend)) }}</el-text>
+          <el-text>{{ format(__('Remaining: ~ {0}'), duration(remaining)) }}</el-text>
+          <el-text v-if="progressOps.workerCount">{{ format(__('Worker Count: {0}'), progressOps.workerCount) }}</el-text>
+          <el-text v-if="progressOps.waitingTask">{{ format(__('Waiting Task: {0}'), progressOps.waitingTask) }}</el-text>
+        </div>
 
         <div class="flex justify-between">
           <el-button @click="active = STEP_SETTINGS; done = false; genVersion = ''">{{ __('Previous Step') }}</el-button>
@@ -195,7 +205,7 @@ const activeName = computed({// tabs
 
 // step 1: select type
 const isSingle = ref(false)
-const canUploadFolder = false// || 'webkitdirectory' in document.createElement('input')
+const canUploadFolder = false || 'webkitdirectory' in document.createElement('input')
 const selectType = (single: boolean) => {
   isSingle.value = single
   active.value = STEP_FILE
@@ -323,8 +333,11 @@ function showError(msg: string) {
 const done = ref(false)
 const progressOps = reactive({
   pct: 0,
-  status: ''
+  status: '',
+  workerCount: 0,
+  waitingTask: 0,
 })
+
 const costMs = ref(0)
 const descGenerate = computed(() => {
   if (done.value) {
@@ -352,12 +365,24 @@ const downloadURL = ref('')
 
 const genVersion = ref('')
 const totalSize = computed(() => fileList.value.reduce((sum, i) => sum + i.size!, 0))
+const pieceSize = computed(() => {
+  if (form.pieceSize !== 0) return form.pieceSize;
+  return genPieceSize(totalSize.value);
+})
+
+const spend = ref(0)
+const remaining = ref(0)
+
 const generate = async () => {
   done.value = false
   showPreview.value = false
   progressOps.pct = 0
   progressOps.status = ''
+  progressOps.workerCount = 0
+  progressOps.waitingTask = 0
   const start = new Date().getTime()
+  spend.value = 0
+  remaining.value = 0
   genVersion.value = start + ''
   if (form.trackers) {
     const trackers = form.trackers.trim().split(/\s+/g)
@@ -405,11 +430,16 @@ const generate = async () => {
       form.readBlockSize,
       torrent.value.info['piece length'],
       genVersion.value,
-      (read: number, total: number, version: string) => {
-        progressOps.pct = toFixed(100 * read / total, 2)
+      (read: number, total: number, version: string, workerCount: number, waitingTask: number) => {
+        spend.value = (new Date().getTime()) - start;
+        // read:spend = left:remaining => remaining = spend*left/read
+        remaining.value = toFixed(spend.value * (total - read) / read, 0)
+        progressOps.pct = toFixed(100 * read / total, 2);
         if (read === total) {
           progressOps.status = 'success'
         }
+        progressOps.workerCount = workerCount
+        progressOps.waitingTask = waitingTask
         return version == genVersion.value
       },
     );

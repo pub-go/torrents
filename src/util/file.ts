@@ -2,7 +2,7 @@ import type { UploadRawFile } from "element-plus"
 import { sha1 } from './sha1'
 import type { Req, Resp } from "./worker"
 // 进度回调。如果返回 false 则终止计算
-type onProgress = (current: number, total: number, version: string) => boolean
+type onProgress = (current: number, total: number, version: string, workerCount: number, waitingTask: number) => boolean
 // 算完后点击上一步再点击下一步 如果文件和分片大小没变 就复用 sha1 结果
 const cache = new Map<string, Uint8Array>()
 
@@ -13,7 +13,7 @@ async function genFilesSha1(files: UploadRawFile[], readBlockSize: number, piece
     const key = files.map(f => f.uid).join('|') + pieceSize
     const cached = cache.get(key)
     if (cached) {
-        onProgress(totalSize, totalSize, version)
+        onProgress(totalSize, totalSize, version, workers.length, waitingTask.length)
         return cached
     }
 
@@ -34,17 +34,18 @@ async function genFilesSha1(files: UploadRawFile[], readBlockSize: number, piece
     return result
 }
 
-async function genPiecesSha1(files: UploadRawFile[], readBlockSize: number, pieceSize: number, totalSize: number, version: string, onProgress: onProgress) {
+async function genPiecesSha1(files: UploadRawFile[], readBlockSize: number, pieceSize: number, totalSize: number,
+    version: string, onProgress: onProgress) {
     const hashArray: Uint8Array[] = []
     let index = 0// 分片位置
     let readBytes = 0// 已读取字节数 用于更新进度
     let doneBytes = 0
-    await new Promise<void>(async (resolve) => {
+    await new Promise<void>(async (resolve, reject) => {
         for await (let piece of readBlock(files, totalSize, readBlockSize, pieceSize)) {
             if (piece) {
                 readBytes += piece.byteLength
-                if (!onProgress(readBytes, totalSize, version)) {
-                    throw new Error('Canceled')// 如果界面上重置了任务允许终端计算
+                if (!onProgress(readBytes, totalSize, version, workers.length, waitingTask.length)) {
+                    return reject(new Error('Canceled'))// 如果界面上重置了任务允许终端计算
                 }
                 await hash(index++, piece, (index, pieceLength, result) => {
                     hashArray[index] = result // 分片结果保存
@@ -54,6 +55,7 @@ async function genPiecesSha1(files: UploadRawFile[], readBlockSize: number, piec
             }
         }
     })// 等待所有分片计算完成
+    onProgress(readBytes, totalSize, version, workers.length, waitingTask.length)
     return hashArray
 }
 
@@ -211,12 +213,12 @@ function doHashWithWorker(pieceIndex: number, pieceData: ArrayBuffer, callback: 
             // 如果有等待的任务就拿出来执行
             const task = waitingTask.shift()
             if (task) {
-                console.log('do previous task', task)
+                // console.log('do previous task', task)
                 doHashWithWorker(task.req.pieceIndex, task.req.pieceData, task.callback)
             }
         }
     } else { // 等待有可用的 worker
-        console.log('waiting a worker', req)
+        // console.log('waiting a worker', req)
         waitingTask.push({ req, callback })
     }
 }
