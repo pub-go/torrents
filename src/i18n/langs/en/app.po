@@ -21,7 +21,7 @@ msgstr ""
 msgid "[Officical] The BitTorrent Protocol Specification (BEP_0003)"
 msgstr ""
 
-#: src/views/CreateView.vue:268
+#: src/views/CreateView.vue:272
 msgid "{0} Files"
 msgstr ""
 
@@ -37,47 +37,47 @@ msgstr ""
 msgid "{0} seconds"
 msgstr ""
 
-#: src/views/CreateView.vue:81 src/views/CreateView.vue:99
+#: src/views/CreateView.vue:103 src/views/CreateView.vue:85
 msgid "1 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:78 src/views/CreateView.vue:96
+#: src/views/CreateView.vue:100 src/views/CreateView.vue:82
 msgid "128 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:75 src/views/CreateView.vue:93
+#: src/views/CreateView.vue:79 src/views/CreateView.vue:97
 msgid "16 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:103 src/views/CreateView.vue:85
+#: src/views/CreateView.vue:107 src/views/CreateView.vue:89
 msgid "16 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:100 src/views/CreateView.vue:82
+#: src/views/CreateView.vue:104 src/views/CreateView.vue:86
 msgid "2 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:79 src/views/CreateView.vue:97
+#: src/views/CreateView.vue:101 src/views/CreateView.vue:83
 msgid "256 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:76 src/views/CreateView.vue:94
+#: src/views/CreateView.vue:80 src/views/CreateView.vue:98
 msgid "32 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:101 src/views/CreateView.vue:83
+#: src/views/CreateView.vue:105 src/views/CreateView.vue:87
 msgid "4 MB"
 msgstr ""
 
-#: src/views/CreateView.vue:80 src/views/CreateView.vue:98
+#: src/views/CreateView.vue:102 src/views/CreateView.vue:84
 msgid "512 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:77 src/views/CreateView.vue:95
+#: src/views/CreateView.vue:81 src/views/CreateView.vue:99
 msgid "64 KB"
 msgstr ""
 
-#: src/views/CreateView.vue:102 src/views/CreateView.vue:84
+#: src/views/CreateView.vue:106 src/views/CreateView.vue:88
 msgid "8 MB"
 msgstr ""
 
@@ -90,28 +90,32 @@ msgstr ""
 msgid "Add File"
 msgstr ""
 
-#: src/views/CreateView.vue:74
+#: src/views/CreateView.vue:78
 msgid "Auto ({0})"
 msgstr ""
 
-#: src/views/CreateView.vue:154 src/views/CreateView.vue:155
-#: src/views/CreateView.vue:156
+#: src/views/CreateView.vue:158 src/views/CreateView.vue:159
+#: src/views/CreateView.vue:160
 msgid "Block Size: {0} Bytes / {1}"
 msgstr ""
 
-#: src/views/CreateView.vue:108 src/views/CreateView.vue:109
+#: src/views/CreateView.vue:112 src/views/CreateView.vue:113
 msgid "Bytes / {0}"
+msgstr ""
+
+#: src/views/CreateView.vue:44 src/views/CreateView.vue:45
+msgid "Can not upload a folder?"
 msgstr ""
 
 #: src/views/EditView.vue:61
 msgid "Can not view this file: {0}"
 msgstr ""
 
-#: src/views/CreateView.vue:43 src/views/CreateView.vue:44
+#: src/views/CreateView.vue:47 src/views/CreateView.vue:48
 msgid "Clear Files"
 msgstr ""
 
-#: src/views/CreateView.vue:133
+#: src/views/CreateView.vue:137
 msgid "Comment"
 msgstr ""
 
@@ -120,7 +124,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: src/views/CreateView.vue:124
+#: src/views/CreateView.vue:128
 msgid "Creation Date"
 msgstr ""
 
@@ -129,13 +133,13 @@ msgstr ""
 msgid "Dict"
 msgstr ""
 
-#: src/views/CreateView.vue:344
+#: src/views/CreateView.vue:348
 msgid "done ({0})"
 msgstr ""
 
 #: src/components/tree/DictEdit.vue:4 src/components/tree/DictEdit.vue:5
-#: src/views/CreateView.vue:168 src/views/CreateView.vue:169
-#: src/views/CreateView.vue:170 src/views/CreateView.vue:171
+#: src/views/CreateView.vue:172 src/views/CreateView.vue:173
+#: src/views/CreateView.vue:174 src/views/CreateView.vue:175
 msgid "Download"
 msgstr ""
 
@@ -149,28 +153,28 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:327
+#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:331
 #: src/views/EditView.vue:60
 msgid "Error"
 msgstr ""
 
-#: src/views/CreateView.vue:60
+#: src/views/CreateView.vue:64
 msgid "File List"
 msgstr ""
 
-#: src/views/CreateView.vue:55
+#: src/views/CreateView.vue:59
 msgid "Folder Name"
 msgstr ""
 
-#: src/views/CreateView.vue:308
+#: src/views/CreateView.vue:312
 msgid "Folder name can not be empty."
 msgstr ""
 
-#: src/views/CreateView.vue:297 src/views/CreateView.vue:7
+#: src/views/CreateView.vue:305 src/views/CreateView.vue:7
 msgid "Generate"
 msgstr ""
 
-#: src/views/CreateView.vue:453
+#: src/views/CreateView.vue:457
 msgid "Generate torrent file success. ({0})"
 msgstr ""
 
@@ -192,11 +196,11 @@ msgstr ""
 msgid "Invalid hex string"
 msgstr ""
 
-#: src/views/CreateView.vue:317
+#: src/views/CreateView.vue:321
 msgid "invalid tracker URL: {0}"
 msgstr ""
 
-#: src/views/CreateView.vue:121
+#: src/views/CreateView.vue:125
 msgid "Is Private"
 msgstr ""
 
@@ -213,8 +217,8 @@ msgstr ""
 msgid "Multi Line"
 msgstr ""
 
-#: src/views/CreateView.vue:142 src/views/CreateView.vue:143
-#: src/views/CreateView.vue:45 src/views/CreateView.vue:46
+#: src/views/CreateView.vue:146 src/views/CreateView.vue:147
+#: src/views/CreateView.vue:49 src/views/CreateView.vue:50
 msgid "Next Step"
 msgstr ""
 
@@ -230,12 +234,12 @@ msgstr ""
 msgid "Online Torrent Creator/Editor"
 msgstr ""
 
-#: src/views/CreateView.vue:72
+#: src/views/CreateView.vue:76
 msgid "Piece Size"
 msgstr ""
 
-#: src/views/CreateView.vue:153 src/views/CreateView.vue:154
-#: src/views/CreateView.vue:155
+#: src/views/CreateView.vue:157 src/views/CreateView.vue:158
+#: src/views/CreateView.vue:159
 msgid "Piece Size: {0} Bytes / {1}"
 msgstr ""
 
@@ -243,23 +247,23 @@ msgstr ""
 msgid "Plsease select a folder."
 msgstr ""
 
-#: src/views/CreateView.vue:166 src/views/CreateView.vue:167
-#: src/views/CreateView.vue:168
+#: src/views/CreateView.vue:170 src/views/CreateView.vue:171
+#: src/views/CreateView.vue:172
 msgid "Preview"
 msgstr ""
 
-#: src/views/CreateView.vue:140 src/views/CreateView.vue:141
-#: src/views/CreateView.vue:164 src/views/CreateView.vue:165
-#: src/views/CreateView.vue:166 src/views/CreateView.vue:42
+#: src/views/CreateView.vue:144 src/views/CreateView.vue:145
+#: src/views/CreateView.vue:168 src/views/CreateView.vue:169
+#: src/views/CreateView.vue:170 src/views/CreateView.vue:42
 #: src/views/CreateView.vue:43
 msgid "Previous Step"
 msgstr ""
 
-#: src/views/CreateView.vue:89
+#: src/views/CreateView.vue:93
 msgid "Read Block Size"
 msgstr ""
 
-#: src/views/CreateView.vue:114 src/views/CreateView.vue:115
+#: src/views/CreateView.vue:118 src/views/CreateView.vue:119
 msgid ""
 "read file by block: set block size larger to make reading faster (and cost "
 "more memory)."
@@ -269,9 +273,9 @@ msgstr ""
 msgid "Reference Links"
 msgstr ""
 
-#: src/views/CreateView.vue:158 src/views/CreateView.vue:159
-#: src/views/CreateView.vue:160
-msgid "Remaining: ~{0}"
+#: src/views/CreateView.vue:162 src/views/CreateView.vue:163
+#: src/views/CreateView.vue:164
+msgid "Remaining: ~ {0}"
 msgstr ""
 
 #: src/views/EditView.vue:10 src/views/EditView.vue:11
@@ -282,16 +286,16 @@ msgstr ""
 msgid "Select Type"
 msgstr ""
 
-#: src/views/CreateView.vue:101 src/views/CreateView.vue:6
+#: src/views/CreateView.vue:109 src/views/CreateView.vue:6
 msgid "Settings"
 msgstr ""
 
-#: src/views/CreateView.vue:136
+#: src/views/CreateView.vue:140
 msgid "Source"
 msgstr ""
 
-#: src/views/CreateView.vue:157 src/views/CreateView.vue:158
-#: src/views/CreateView.vue:159
+#: src/views/CreateView.vue:161 src/views/CreateView.vue:162
+#: src/views/CreateView.vue:163
 msgid "Spend: {0}"
 msgstr ""
 
@@ -300,17 +304,21 @@ msgstr ""
 msgid "String"
 msgstr ""
 
-#: src/views/CreateView.vue:447
+#: src/views/CreateView.vue:451
 msgid "task canceled."
 msgstr ""
 
-#: src/views/CreateView.vue:152 src/views/CreateView.vue:153
-#: src/views/CreateView.vue:154
+#: src/views/CreateView.vue:156 src/views/CreateView.vue:157
+#: src/views/CreateView.vue:158
 msgid "Total Size: {0} Bytes / {1}"
 msgstr ""
 
-#: src/views/CreateView.vue:127
+#: src/views/CreateView.vue:131
 msgid "Trackers"
+msgstr ""
+
+#: src/views/CreateView.vue:45 src/views/CreateView.vue:46
+msgid "Try upload a folder"
 msgstr ""
 
 #: src/views/EditView.vue:12 src/views/EditView.vue:13
@@ -322,21 +330,21 @@ msgstr ""
 msgid "View/Edit"
 msgstr ""
 
-#: src/views/CreateView.vue:160 src/views/CreateView.vue:161
-#: src/views/CreateView.vue:162
+#: src/views/CreateView.vue:164 src/views/CreateView.vue:165
+#: src/views/CreateView.vue:166
 msgid "Waiting Task: {0}"
 msgstr ""
 
-#: src/views/CreateView.vue:130
+#: src/views/CreateView.vue:134
 msgid "Web Seeds"
 msgstr ""
 
-#: src/views/CreateView.vue:159 src/views/CreateView.vue:160
-#: src/views/CreateView.vue:161
+#: src/views/CreateView.vue:163 src/views/CreateView.vue:164
+#: src/views/CreateView.vue:165
 msgid "Worker Count: {0}"
 msgstr ""
 
-#: src/views/CreateView.vue:220
+#: src/views/CreateView.vue:224
 msgid ""
 "Your broswer does not support select folder, please select files one by one. "
 "(All files should be on the same folder.)"
@@ -373,17 +381,17 @@ msgctxt "btn"
 msgid "Single File"
 msgstr ""
 
-#: src/views/CreateView.vue:224
+#: src/views/CreateView.vue:228
 msgctxt "desc"
 msgid "Folder"
 msgstr ""
 
-#: src/views/CreateView.vue:224
+#: src/views/CreateView.vue:228
 msgctxt "desc"
 msgid "Single File"
 msgstr ""
 
-#: src/views/CreateView.vue:63 src/views/CreateView.vue:64
+#: src/views/CreateView.vue:67 src/views/CreateView.vue:68
 msgctxt "file-size"
 msgid "{0} ({1})"
 msgstr ""
@@ -423,12 +431,12 @@ msgctxt "reference link"
 msgid "[UI] {0}"
 msgstr ""
 
-#: src/views/CreateView.vue:299
+#: src/views/CreateView.vue:303
 msgctxt "settings desc"
 msgid "BT ({0})"
 msgstr ""
 
-#: src/views/CreateView.vue:297
+#: src/views/CreateView.vue:301
 msgctxt "settings desc"
 msgid "PT ({0})"
 msgstr ""

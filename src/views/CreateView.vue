@@ -41,6 +41,10 @@
 
         <div class="flex justify-between">
           <el-button @click="active--">{{ __('Previous Step') }}</el-button>
+          <el-button v-if="!isSingle" @click="canUploadFolder = !canUploadFolder">
+            <template v-if="canUploadFolder">{{ __('Can not upload a folder?') }}</template>
+            <template v-if="!canUploadFolder">{{ __('Try upload a folder') }}</template>
+          </el-button>
           <el-button v-if="fileList.length > 0" @click="uploadRef?.clearFiles()">{{ __('Clear Files') }}</el-button>
           <el-button :disabled="fileList.length == 0" type="primary" @click="fileSelected">
             {{ __('Next Step') }}
@@ -205,7 +209,7 @@ const activeName = computed({// tabs
 
 // step 1: select type
 const isSingle = ref(false)
-const canUploadFolder = false || 'webkitdirectory' in document.createElement('input')
+const canUploadFolder = ref('webkitdirectory' in document.createElement('input'))
 const selectType = (single: boolean) => {
   isSingle.value = single
   active.value = STEP_FILE
