@@ -1,5 +1,5 @@
 <template>
-    <details class="mt4 pl pt pb b b-dashed">
+    <details class="bvalue bstring mt4 pl pt pb b b-dashed">
         <summary class="cursor-pointer">
             <el-row class="inline-flex w95%">
                 <el-col :span="12">{{ props.name }}</el-col>

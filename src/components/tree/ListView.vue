@@ -44,7 +44,7 @@ const add = () => {
 </script>
 
 <template>
-    <details class="mt4 pl pt pb b b-solid">
+    <details class="bvalue blist mt4 pl pt pb b b-solid">
         <summary class="cursor-pointer">
             <el-row class="inline-flex w95%">
                 <el-col :span="12">{{ props.name }}</el-col>

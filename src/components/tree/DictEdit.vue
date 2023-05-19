@@ -1,10 +1,19 @@
 <template>
-    <el-container class="is-vertical">
+    <el-container class="edit-view is-vertical">
         <DictView :data="dict" @update="(val: BDict) => dict = val" :name="props.name" />
         <a ref="downloadLink" class="hidden" id="download">{{ __("Download") }}</a>
         <el-button type="primary" @click="download" class="mt4">{{ __('Download') }}</el-button>
     </el-container>
 </template>
+<style>
+.edit-view li {
+    overflow: auto;
+}
+
+.edit-view .bvalue {
+    min-width: 280px;
+}
+</style>
 <script setup lang="ts">
 import type { BDict } from '@/bencode';
 import { ref } from 'vue';
