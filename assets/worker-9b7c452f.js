@@ -1,0 +1,1 @@
+(function(){"use strict";self.addEventListener("message",t=>{const e=t.data;crypto.subtle.digest("SHA-1",e.pieceData).then(n=>{self.postMessage({version:e.version,workerIndex:e.workerIndex,pieceIndex:e.pieceIndex,pieceLengh:e.pieceData.byteLength,pieceHash:new Uint8Array(n)})})})})();
