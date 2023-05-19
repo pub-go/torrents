@@ -9,6 +9,7 @@
         </el-upload>
         <div class="flex justify-between">
             <el-button @click="reset">{{ __('Reset') }}</el-button>
+            <el-button @click="newTorrent">{{ __('New') }}</el-button>
             <el-button type='primary' :disabled="disabledViewBtn" @click="view" :loading="loading">
                 {{ __('View') }}
             </el-button>
@@ -18,10 +19,12 @@
 </template>
 
 <script setup lang="ts">
-import { BDict, decode } from '@/bencode';
+import { BDict, decode, toBValue } from '@/bencode';
 import DictEdit from '@/components/tree/DictEdit.vue';
 import { __ } from '@/i18n/gettext';
+import type { Torrent } from '@/model/torrent';
 import { format } from '@/util/format';
+import { fromString } from '@/util/uint8array';
 import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus';
 import { ElNotification } from 'element-plus';
 import { computed, ref } from 'vue';
@@ -40,6 +43,35 @@ const reset = () => {
     dict.value = new BDict({})
     show.value = false
 }
+
+const newTorrent = () => {
+    uploadRef.value?.clearFiles()
+    fileName.value = __('new_torrent')
+    dict.value = toBValue({
+        announce: __('https://tracker.url/announce'),
+        comment: __('comments'),
+        'created by': 'https://pub-go.github.io/torrents/',
+        'creation date': new Date().getTime() / 1000,
+        info: {
+            name: __('torrent name: file/folder name'),
+            'piece length': 524288,// 512 KB
+            pieces: fromString(__('<piece sha1>')),
+            private: 0,
+            length: 0,
+            files: [
+                {
+                    length: 0, path: [
+                        __('sub folder'),
+                        __('file name'),
+                    ]
+                },
+            ],
+            source: __('source'),
+        },
+    } as Torrent) as BDict
+    show.value = true
+}
+
 const disabledViewBtn = computed(() => fileList.value.length === 0)
 const loading = ref(false)
 const view = async () => {

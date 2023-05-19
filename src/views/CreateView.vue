@@ -154,7 +154,7 @@
 
         <el-progress :percentage="progressOps.pct" :status="progressOps.status" :text-inside="true" :stroke-width="26"
           class="mb-4" :striped="progressOps.pct < 100" :striped-flow="progressOps.pct < 100" />
-        <div class="flex gap-4">
+        <div class="flex flex-wrap gap-4">
           <el-text>{{ format(__('Total Size: {0} Bytes / {1}'), totalSize, sizeString(totalSize)) }}</el-text>
           <el-text>{{ format(__('Piece Size: {0} Bytes / {1}'), pieceSize, sizeString(pieceSize)) }}</el-text>
           <el-text>{{ format(__('Block Size: {0} Bytes / {1}'), form.readBlockSize,
@@ -163,6 +163,9 @@
           <el-text>{{ format(__('Spend: {0}'), duration(spend)) }}</el-text>
           <el-text>{{ format(__('Remaining: ~ {0}'), duration(remaining)) }}</el-text>
           <el-text v-if="progressOps.workerCount">{{ format(__('Worker Count: {0}'), progressOps.workerCount) }}</el-text>
+          <el-text v-if="progressOps.buzyWorker.length > 0">
+            {{ format(__('Buzy Workers: [{0}]'), progressOps.buzyWorker) }}
+          </el-text>
           <el-text v-if="progressOps.waitingTask">{{ format(__('Waiting Task: {0}'), progressOps.waitingTask) }}</el-text>
         </div>
 
@@ -191,7 +194,7 @@ import { duration, format, toFixed } from '@/util/format';
 import { sizeString } from '@/util/size';
 import { ArrowDown, ArrowUp, Delete } from '@element-plus/icons-vue';
 import { ElMessage, ElNotification, type UploadInstance, type UploadProps, type UploadRawFile, type UploadUserFile } from 'element-plus';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 
 // steps(index/下标) and tabs(value/值)
 const items = ['type', 'add_file', 'settings', 'generate']
@@ -221,6 +224,16 @@ const selectType = (single: boolean) => {
     }
   }
 }
+
+watch(canUploadFolder, (val) => {
+  if (!isSingle.value) {
+    const input = document.querySelector<HTMLInputElement>('.el-upload__input');
+    if (input) {
+      input.webkitdirectory = val
+    }
+  }
+})
+
 const folderNotSupportTip = __('Your broswer does not support select folder, please select files one by one. (All files should be on the same folder.)')
 
 const descType = computed(() => {
@@ -340,6 +353,7 @@ const progressOps = reactive({
   status: '',
   workerCount: 0,
   waitingTask: 0,
+  buzyWorker: [] as number[]
 })
 
 const costMs = ref(0)
@@ -384,6 +398,7 @@ const generate = async () => {
   progressOps.status = ''
   progressOps.workerCount = 0
   progressOps.waitingTask = 0
+  progressOps.buzyWorker = []
   const start = new Date().getTime()
   spend.value = 0
   remaining.value = 0
@@ -434,17 +449,18 @@ const generate = async () => {
       form.readBlockSize,
       torrent.value.info['piece length'],
       genVersion.value,
-      (read: number, total: number, version: string, workerCount: number, waitingTask: number) => {
+      (data) => {
         spend.value = (new Date().getTime()) - start;
         // read:spend = left:remaining => remaining = spend*left/read
-        remaining.value = toFixed(spend.value * (total - read) / read, 0)
-        progressOps.pct = toFixed(100 * read / total, 2);
-        if (read === total) {
+        remaining.value = toFixed(spend.value * (data.total - data.current) / data.current, 0)
+        progressOps.pct = toFixed(100 * data.current / data.total, 2);
+        if (data.current === data.total) {
           progressOps.status = 'success'
         }
-        progressOps.workerCount = workerCount
-        progressOps.waitingTask = waitingTask
-        return version == genVersion.value
+        progressOps.workerCount = data.workerCount
+        progressOps.waitingTask = data.waitingTask
+        progressOps.buzyWorker = Array.from(data.buzyWorker).sort()
+        return data.version == genVersion.value
       },
     );
   } catch {

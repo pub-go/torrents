@@ -1,8 +1,19 @@
 import type { UploadRawFile } from "element-plus"
 import { sha1 } from './sha1'
 import type { Req, Resp } from "./worker"
+
+interface ProgressData {
+    current: number,
+    total: number,
+    version: string,
+    workerCount: number,
+    buzyWorker: Set<number>,
+    waitingTask: number,
+}
+
 // 进度回调。如果返回 false 则终止计算
-type onProgress = (current: number, total: number, version: string, workerCount: number, waitingTask: number) => boolean
+type onProgress = (data: ProgressData) => boolean
+
 // 算完后点击上一步再点击下一步 如果文件和分片大小没变 就复用 sha1 结果
 const cache = new Map<string, Uint8Array>()
 
@@ -13,7 +24,14 @@ async function genFilesSha1(files: UploadRawFile[], readBlockSize: number, piece
     const key = files.map(f => f.uid).join('|') + pieceSize
     const cached = cache.get(key)
     if (cached) {
-        onProgress(totalSize, totalSize, version, workers.length, waitingTask.length)
+        onProgress({
+            current: totalSize,
+            total: totalSize,
+            version,
+            workerCount: workers.length,
+            buzyWorker: workingIndex,
+            waitingTask: waitingTask.length,
+        })
         return cached
     }
 
@@ -34,20 +52,34 @@ async function genFilesSha1(files: UploadRawFile[], readBlockSize: number, piece
     return result
 }
 
+// 等待队列
+let waitingTask: { req: Req, callback: HashCallback }[] = [];
+
 async function genPiecesSha1(files: UploadRawFile[], readBlockSize: number, pieceSize: number, totalSize: number,
     version: string, onProgress: onProgress) {
     const hashArray: Uint8Array[] = []
     let index = 0// 分片位置
     let readBytes = 0// 已读取字节数 用于更新进度
     let doneBytes = 0
+    waitingTask = []// 清空等待任务
     await new Promise<void>(async (resolve, reject) => {
         for await (let piece of readBlock(files, totalSize, readBlockSize, pieceSize)) {
             if (piece) {
                 readBytes += piece.byteLength
-                if (!onProgress(readBytes, totalSize, version, workers.length, waitingTask.length)) {
+                if (!onProgress({
+                    current: readBytes,
+                    total: totalSize,
+                    version,
+                    workerCount: workers.length,
+                    buzyWorker: workingIndex,
+                    waitingTask: waitingTask.length,
+                })) {
                     return reject(new Error('Canceled'))// 如果界面上重置了任务允许终端计算
                 }
-                await hash(index++, piece, (index, pieceLength, result) => {
+                await hash(version, index++, piece, (v, index, pieceLength, result) => {
+                    if (version !== v) {
+                        throw new Error('Canceled')// 等待队列中的老任务返回了应当丢弃
+                    }
                     hashArray[index] = result // 分片结果保存
                     doneBytes += pieceLength // 已计算完成的字节数
                     if (doneBytes === totalSize) { resolve() }
@@ -55,7 +87,14 @@ async function genPiecesSha1(files: UploadRawFile[], readBlockSize: number, piec
             }
         }
     })// 等待所有分片计算完成
-    onProgress(readBytes, totalSize, version, workers.length, waitingTask.length)
+    onProgress({
+        current: readBytes,
+        total: totalSize,
+        version,
+        workerCount: workers.length,
+        buzyWorker: workingIndex,
+        waitingTask: waitingTask.length,
+    })
     return hashArray
 }
 
@@ -135,24 +174,24 @@ function readBlock(files: UploadRawFile[], totalSize: number, readBlockSize: num
     }
 }
 
-type HashCallback = (pieceIndex: number, pieceLength: number, pieceHash: Uint8Array) => void
+type HashCallback = (version: string, pieceIndex: number, pieceLength: number, pieceHash: Uint8Array) => void
 const workers = initWorkers()
 
 // 计算 sha1 值。返回一个 Promise<void> 当其完成后才能继续读取下一分片。
 // 当有多个 worker 时, 任务提交给可用的 worker 后即可继续读取下一分片。
-async function hash(pieceIndex: number, pieceData: ArrayBuffer, callback: HashCallback) {
+async function hash(version: string, pieceIndex: number, pieceData: ArrayBuffer, callback: HashCallback) {
     return new Promise<void>((resolve) => {
         if (location.search.includes('sha1=fake')) {
-            callback(pieceIndex, pieceData.byteLength, new Uint8Array(20))
+            callback(version, pieceIndex, pieceData.byteLength, new Uint8Array(20))
             resolve()
             return
         }
         if (workers.length > 0) {
             resolve()// 尽快读取余下数据
-            doHashWithWorker(pieceIndex, pieceData, callback)
+            doHashWithWorker(version, pieceIndex, pieceData, callback)
         } else {// 非 worker 模式
             sha1(pieceData).then((result: Uint8Array) => {
-                callback(pieceIndex, pieceData.byteLength, result)
+                callback(version, pieceIndex, pieceData.byteLength, result)
                 resolve() // 计算完后再读取接下来的数据
             })
         }
@@ -177,10 +216,9 @@ function initWorkers() {
 
 // 正在运行的 workers 的下标
 const workingIndex = new Set<number>()
-// 等待队列
-const waitingTask: { req: Req, callback: HashCallback }[] = []
+
 let maxWorkerIndex = 0
-function doHashWithWorker(pieceIndex: number, pieceData: ArrayBuffer, callback: HashCallback) {
+function doHashWithWorker(version: string, pieceIndex: number, pieceData: ArrayBuffer, callback: HashCallback) {
     let selectedWorker: Worker | null = null
     let selectIndex: number = -1
     for (let i = 0; i < workers.length; i++) {
@@ -196,9 +234,10 @@ function doHashWithWorker(pieceIndex: number, pieceData: ArrayBuffer, callback: 
         console.log('maxWorkerIndex=', maxWorkerIndex)
     }
     const req: Req = {
+        version,
         workerIndex: selectIndex,
-        pieceIndex: pieceIndex,
-        pieceData: pieceData,
+        pieceIndex,
+        pieceData,
     }
     // console.log('req=', req.workerIndex, req.pieceIndex)
     const start = new Date().getTime()
@@ -208,13 +247,13 @@ function doHashWithWorker(pieceIndex: number, pieceData: ArrayBuffer, callback: 
             const resp = e.data as Resp // 收到结果
             const cost = new Date().getTime() - start
             // console.log('cost', duration(cost), 'resp=', resp)
-            callback(resp.pieceIndex, resp.pieceLengh, resp.pieceHash)
+            callback(resp.version, resp.pieceIndex, resp.pieceLengh, resp.pieceHash)
             workingIndex.delete(resp.workerIndex)// 将该 worker 置为空闲
             // 如果有等待的任务就拿出来执行
             const task = waitingTask.shift()
             if (task) {
                 // console.log('do previous task', task)
-                doHashWithWorker(task.req.pieceIndex, task.req.pieceData, task.callback)
+                doHashWithWorker(task.req.version, task.req.pieceIndex, task.req.pieceData, task.callback)
             }
         }
     } else { // 等待有可用的 worker

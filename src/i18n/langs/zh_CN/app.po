@@ -20,7 +20,7 @@ msgstr "[GitHub] Kimbatt/torrent-creator"
 msgid "[Officical] The BitTorrent Protocol Specification (BEP_0003)"
 msgstr "[官方] BitTorrent 协议规范（BEP_0003）"
 
-#: src/views/CreateView.vue:272
+#: src/views/CreateView.vue:285
 msgid "{0} Files"
 msgstr "{0} 个文件"
 
@@ -35,6 +35,10 @@ msgstr "{0} 毫秒"
 #: src/util/format.ts:16
 msgid "{0} seconds"
 msgstr "{0} 秒"
+
+#: src/views/EditView.vue:58
+msgid "<piece sha1>"
+msgstr "<分片sha1散列值>"
 
 #: src/views/CreateView.vue:103 src/views/CreateView.vue:85
 msgid "1 MB"
@@ -98,6 +102,11 @@ msgstr "自动（{0}）"
 msgid "Block Size: {0} Bytes / {1}"
 msgstr "块大小：{0}字节 / {1}"
 
+#: src/views/CreateView.vue:165 src/views/CreateView.vue:166
+#: src/views/CreateView.vue:167
+msgid "Buzy Workers: [{0}]"
+msgstr "运行中 Worker：[{0}]"
+
 #: src/views/CreateView.vue:112 src/views/CreateView.vue:113
 msgid "Bytes / {0}"
 msgstr "字节 / {0}"
@@ -106,7 +115,7 @@ msgstr "字节 / {0}"
 msgid "Can not upload a folder?"
 msgstr "无法上传文件夹？"
 
-#: src/views/EditView.vue:61
+#: src/views/EditView.vue:93
 msgid "Can not view this file: {0}"
 msgstr "无法查看该文件: {0}"
 
@@ -118,6 +127,10 @@ msgstr "清除文件"
 msgid "Comment"
 msgstr "注释"
 
+#: src/views/EditView.vue:52
+msgid "comments"
+msgstr "注释"
+
 #: src/components/PageHeader.vue:20 src/router/index.ts:21
 #: src/views/HomeView.vue:4
 msgid "Create"
@@ -127,18 +140,18 @@ msgstr "制作种子"
 msgid "Creation Date"
 msgstr "创建时间"
 
-#: src/components/tree/DictView.vue:59 src/components/tree/DictView.vue:6
-#: src/components/tree/ListView.vue:99
+#: src/components/tree/DictView.vue:6 src/components/tree/DictView.vue:65
+#: src/components/tree/ListView.vue:110
 msgid "Dict"
 msgstr "字典"
 
-#: src/views/CreateView.vue:348
+#: src/views/CreateView.vue:362
 msgid "done ({0})"
 msgstr "完成（{0}）"
 
 #: src/components/tree/DictEdit.vue:4 src/components/tree/DictEdit.vue:5
-#: src/views/CreateView.vue:172 src/views/CreateView.vue:173
-#: src/views/CreateView.vue:174 src/views/CreateView.vue:175
+#: src/views/CreateView.vue:175 src/views/CreateView.vue:176
+#: src/views/CreateView.vue:177 src/views/CreateView.vue:178
 msgid "Download"
 msgstr "下载"
 
@@ -152,8 +165,8 @@ msgstr "拖放文件至此，或点击此处选择文件"
 msgid "Edit"
 msgstr "编辑"
 
-#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:331
-#: src/views/EditView.vue:60
+#: src/components/tree/StringView.vue:67 src/views/CreateView.vue:344
+#: src/views/EditView.vue:92
 msgid "Error"
 msgstr "错误"
 
@@ -161,11 +174,15 @@ msgstr "错误"
 msgid "File List"
 msgstr "文件列表"
 
+#: src/views/EditView.vue:65
+msgid "file name"
+msgstr "文件名"
+
 #: src/views/CreateView.vue:59
 msgid "Folder Name"
 msgstr "文件夹名称"
 
-#: src/views/CreateView.vue:312
+#: src/views/CreateView.vue:325
 msgid "Folder name can not be empty."
 msgstr "文件夹名称不能为空。"
 
@@ -173,7 +190,7 @@ msgstr "文件夹名称不能为空。"
 msgid "Generate"
 msgstr "生成"
 
-#: src/views/CreateView.vue:457
+#: src/views/CreateView.vue:473
 msgid "Generate torrent file success. ({0})"
 msgstr "生成种子文件成功。（{0}）"
 
@@ -186,8 +203,12 @@ msgstr "16进制"
 msgid "Home"
 msgstr "首页"
 
-#: src/components/tree/DictView.vue:55 src/components/tree/IntegerView.vue:27
-#: src/components/tree/ListView.vue:95
+#: src/views/EditView.vue:51
+msgid "https://tracker.url/announce"
+msgstr "https://tracker服务器通告地址/announce"
+
+#: src/components/tree/DictView.vue:61 src/components/tree/IntegerView.vue:27
+#: src/components/tree/ListView.vue:106
 msgid "Integer"
 msgstr "整数"
 
@@ -195,7 +216,7 @@ msgstr "整数"
 msgid "Invalid hex string"
 msgstr "非法的十六进制"
 
-#: src/views/CreateView.vue:321
+#: src/views/CreateView.vue:334
 msgid "invalid tracker URL: {0}"
 msgstr "无法识别的 tracker URL: {0}"
 
@@ -207,8 +228,8 @@ msgstr "私有种子(PT)"
 msgid "last update at: {0}-{1}-{2} (version: {3})"
 msgstr "最后更新于 {0}-{1}-{2}（版本：{3}）"
 
-#: src/components/tree/DictView.vue:57 src/components/tree/ListView.vue:46
-#: src/components/tree/ListView.vue:97
+#: src/components/tree/DictView.vue:63 src/components/tree/ListView.vue:108
+#: src/components/tree/ListView.vue:51
 msgid "List"
 msgstr "列表"
 
@@ -216,12 +237,20 @@ msgstr "列表"
 msgid "Multi Line"
 msgstr "多行"
 
+#: src/views/EditView.vue:11 src/views/EditView.vue:12
+msgid "New"
+msgstr "新建"
+
+#: src/views/EditView.vue:49
+msgid "new_torrent"
+msgstr "新建种子文件"
+
 #: src/views/CreateView.vue:146 src/views/CreateView.vue:147
 #: src/views/CreateView.vue:49 src/views/CreateView.vue:50
 msgid "Next Step"
 msgstr "下一步"
 
-#: src/views/EditView.vue:54
+#: src/views/EditView.vue:86
 msgid "not torrent file"
 msgstr "不是种子文件"
 
@@ -246,14 +275,14 @@ msgstr "分片大小：{0}字节 / {1}"
 msgid "Plsease select a folder."
 msgstr "请选择一个文件夹"
 
-#: src/views/CreateView.vue:170 src/views/CreateView.vue:171
-#: src/views/CreateView.vue:172
+#: src/views/CreateView.vue:173 src/views/CreateView.vue:174
+#: src/views/CreateView.vue:175
 msgid "Preview"
 msgstr "预览"
 
 #: src/views/CreateView.vue:144 src/views/CreateView.vue:145
-#: src/views/CreateView.vue:168 src/views/CreateView.vue:169
-#: src/views/CreateView.vue:170 src/views/CreateView.vue:42
+#: src/views/CreateView.vue:171 src/views/CreateView.vue:172
+#: src/views/CreateView.vue:173 src/views/CreateView.vue:42
 #: src/views/CreateView.vue:43
 msgid "Previous Step"
 msgstr "上一步"
@@ -289,6 +318,10 @@ msgstr "选择类型"
 msgid "Settings"
 msgstr "设置"
 
+#: src/views/EditView.vue:69
+msgid "source"
+msgstr "来源"
+
 #: src/views/CreateView.vue:140
 msgid "Source"
 msgstr "来源"
@@ -298,14 +331,22 @@ msgstr "来源"
 msgid "Spend: {0}"
 msgstr "耗时：{0}"
 
-#: src/components/tree/DictView.vue:53 src/components/tree/ListView.vue:93
+#: src/components/tree/DictView.vue:59 src/components/tree/ListView.vue:104
 #: src/components/tree/StringView.vue:6
 msgid "String"
 msgstr "字符串"
 
-#: src/views/CreateView.vue:451
+#: src/views/EditView.vue:64
+msgid "sub folder"
+msgstr "子文件夹"
+
+#: src/views/CreateView.vue:467
 msgid "task canceled."
 msgstr "任务已取消。"
+
+#: src/views/EditView.vue:56
+msgid "torrent name: file/folder name"
+msgstr "种子名称：文件名/文件夹名"
 
 #: src/views/CreateView.vue:156 src/views/CreateView.vue:157
 #: src/views/CreateView.vue:158
@@ -320,7 +361,7 @@ msgstr "追踪器(Trackers)"
 msgid "Try upload a folder"
 msgstr "试试选择整个文件"
 
-#: src/views/EditView.vue:12 src/views/EditView.vue:13
+#: src/views/EditView.vue:13 src/views/EditView.vue:14
 msgid "View"
 msgstr "查看"
 
@@ -329,8 +370,8 @@ msgstr "查看"
 msgid "View/Edit"
 msgstr "查看/编辑"
 
-#: src/views/CreateView.vue:164 src/views/CreateView.vue:165
-#: src/views/CreateView.vue:166
+#: src/views/CreateView.vue:167 src/views/CreateView.vue:168
+#: src/views/CreateView.vue:169
 msgid "Waiting Task: {0}"
 msgstr "待执行任务：{0}"
 
@@ -343,7 +384,7 @@ msgstr "下载直链"
 msgid "Worker Count: {0}"
 msgstr "Worker 数量：{0}"
 
-#: src/views/CreateView.vue:224
+#: src/views/CreateView.vue:237
 msgid ""
 "Your broswer does not support select folder, please select files one by one. "
 "(All files should be on the same folder.)"
@@ -351,23 +392,23 @@ msgstr ""
 "您使用的浏览器不支持选择文件夹，请一个一个地选择文件。（所有文件应当在同一个"
 "文件夹中，暂不支持跨文件夹/子文件夹）"
 
-#: src/components/tree/DictView.vue:45
+#: src/components/tree/DictView.vue:51
 msgctxt "add key to Dict"
 msgid "Key"
 msgstr "键名"
 
-#: src/components/tree/DictView.vue:30 src/components/tree/DictView.vue:34
-#: src/components/tree/ListView.vue:70 src/components/tree/ListView.vue:74
+#: src/components/tree/DictView.vue:33 src/components/tree/DictView.vue:37
+#: src/components/tree/ListView.vue:78 src/components/tree/ListView.vue:82
 msgctxt "add key to Dict/List"
 msgid "Add"
 msgstr "添加"
 
-#: src/components/tree/DictView.vue:51 src/components/tree/ListView.vue:91
+#: src/components/tree/DictView.vue:57 src/components/tree/ListView.vue:102
 msgctxt "add key to Dict/List"
 msgid "Type"
 msgstr "类型"
 
-#: src/components/tree/ListView.vue:85
+#: src/components/tree/ListView.vue:96
 msgctxt "add key to List"
 msgid "Index"
 msgstr "索引位置"
@@ -382,12 +423,12 @@ msgctxt "btn"
 msgid "Single File"
 msgstr "单文件"
 
-#: src/views/CreateView.vue:228
+#: src/views/CreateView.vue:241
 msgctxt "desc"
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/views/CreateView.vue:228
+#: src/views/CreateView.vue:241
 msgctxt "desc"
 msgid "Single File"
 msgstr "单文件"
@@ -432,12 +473,12 @@ msgctxt "reference link"
 msgid "[UI] {0}"
 msgstr "[组件库] {0}"
 
-#: src/views/CreateView.vue:303
+#: src/views/CreateView.vue:316
 msgctxt "settings desc"
 msgid "BT ({0})"
 msgstr "BT ({0})"
 
-#: src/views/CreateView.vue:301
+#: src/views/CreateView.vue:314
 msgctxt "settings desc"
 msgid "PT ({0})"
 msgstr "PT ({0})"

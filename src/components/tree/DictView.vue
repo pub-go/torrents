@@ -7,15 +7,18 @@
             </el-row>
         </summary>
         <ul class="pl0">
-            <li v-for="(value, key) in dict.value" class="list-none">
-                <StringView :data="(value as BString)" @update="(val: BString) => update(key, val)" :name="key"
-                    v-if="(value.Type() === 'string')" />
-                <IntegerView :data="(value as BInt)" @update="(val: BInt) => update(key, val)" :name="key"
-                    v-if="(value.Type() === 'integer')" />
-                <ListView :data="(value as BList)" @update="(val: BList) => update(key, val)" :name="key"
-                    v-if="(value.Type() === 'list')" />
-                <DictView :data="(value as BDict)" @update="(val: BDict) => update(key, val)" :name="key"
-                    v-if="(value.Type() === 'dict')" />
+            <li v-for="(value, key) in dict.value" class="list-none flex gap-4 flex-items-center">
+                <el-button :icon="Delete" @click="remove(key)" />
+                <div class="grow">
+                    <StringView :data="(value as BString)" @update="(val: BString) => update(key, val)" :name="key"
+                        v-if="(value.Type() === 'string')" />
+                    <IntegerView :data="(value as BInt)" @update="(val: BInt) => update(key, val)" :name="key"
+                        v-if="(value.Type() === 'integer')" />
+                    <ListView :data="(value as BList)" @update="(val: BList) => update(key, val)" :name="key"
+                        v-if="(value.Type() === 'list')" />
+                    <DictView :data="(value as BDict)" @update="(val: BDict) => update(key, val)" :name="key"
+                        v-if="(value.Type() === 'dict')" />
+                </div>
             </li>
             <li class="list-none mt4 pl pt pb b b-dashed">
                 <el-row>
@@ -41,6 +44,7 @@
 
 <script setup lang="ts">
 import { BDict, BInt, BList, BString, type BValue } from '@/bencode';
+import { Delete } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 import IntegerView from './IntegerView.vue';
 import ListView from './ListView.vue';
@@ -57,6 +61,11 @@ const emits = defineEmits<{
 const dict = ref(props.data)
 const update = (key: string, val: BValue) => {
     dict.value.value[key] = val
+    emits('update', dict.value)
+}
+
+const remove = (key: string) => {
+    delete dict.value.value[key]
     emits('update', dict.value)
 }
 
