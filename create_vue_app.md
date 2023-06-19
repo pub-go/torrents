@@ -50,6 +50,7 @@ git push -u origin main
 npm install element-plus --save
 # [自动导入](https://element-plus.org/zh-CN/guide/quickstart.html#%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%85%A5-%E6%8E%A8%E8%8D%90)
 npm install -D unplugin-vue-components unplugin-auto-import
+npm i unplugin-element-plus -D
 # 并按文档修改 vite.config.ts
 ```
 
@@ -67,6 +68,7 @@ npm install -D unocss
 安装后在 vite.config.ts 中配置 Plugin
 ```ts
 // vite.config.ts
+import { presetAttributify, presetIcons, presetUno } from 'unocss'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 
